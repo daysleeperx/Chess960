@@ -17,13 +17,13 @@ Viktor Pavlov (vpavlo)
 Funktsionaalsus
 ---------------
 
-- 2 players
-- Against computer
+- Multiplayer
+- Play against computer
 
 
 **AI**
 
-- ühendus chess engine'ga (Stockfish, Houdine etc)
+- ühendus chess engine'ga (Stockfish, Houdini etc)
 - või oma variant (Alpha-Beta, Minimax)
 
 
