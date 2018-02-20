@@ -64,8 +64,8 @@ Kuningas ei lliigu läbi tule ega lõpeta tule all oleval väljal.
 Plaan
 -----
 
-- \4. nädal: projektiplaaniga alustamine
-- \5. nädal: ideede genereerimine, mõne ekraanivisandi koostamine
+- \4. nädal: projektiplaaniga alustamine/ MVC setup/ Struktuur / Esimesed klassid (Pieces, Game, Player)
+- \5. nädal: Klassid Game, Player, mängu loogika
 - \6. nädal: projektiplaani esitamine
 - \7. nädal: 
 - \8. nädal: 
