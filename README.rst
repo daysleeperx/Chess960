@@ -1,7 +1,7 @@
 **FischerRandom (Chess960)** 
 ========
 
-*Fischeri male* https://en.wikipedia.org/wiki/Chess960
+*Fischeri malemängu rakendus* https://en.wikipedia.org/wiki/Chess960
 
 Fischreri male autoriks on eksmaailmameister Robert Fischer. Fischeri male erineb traditsioonilisest malest selle poolest, et mängijate figuuride algseis on juhuslik. Siiski eksisteerivad järgmised reeglid figuuride paigutusele:
 Etturid asuvad tavalistel väljadel (teises ja seitsmendas reas).
