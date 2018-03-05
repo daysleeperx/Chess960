@@ -1,5 +1,5 @@
 **FischerRandom (Chess960)** 
-========
+============================
 
 *Fischeri malemängu rakendus* https://en.wikipedia.org/wiki/Chess960
 
@@ -10,7 +10,7 @@ Kuningas peab olema kahe vankri vahel. .
 Valge ja musta algseis on sümmeetriline - samad vigurid on samadel liinidel.
 
 Liikmed
---------
+-------
 
 Viktor Pavlov (vpavlo)
 
@@ -64,22 +64,22 @@ Kuningas ei lliigu läbi tule ega lõpeta tule all oleval väljal.
 Plaan
 -----
 
-- \4. nädal: projektiplaaniga alustamine/ MVC setup/ Struktuur / Esimesed klassid (Pieces, Game, Player)
-- \5. nädal: Klassid Game, Player, mängu loogika
-- \6. nädal: projektiplaani esitamine
-- \7. nädal: 
-- \8. nädal: 
-- \9. nädal: 
-- \10. nädal: 
-- \11. nädal: 
-- \12. nädal: 
-- \13. nädal: 
-- \14. nädal: 
-- \15. nädal: 
+- \4. nädal: projektiplaaniga alustamine/ MVC setup/ Struktuur
+- \5. nädal: Esimesed klassid (Pieces)
+- \6. nädal: projektiplaani esitamine, Klassid Game, Player, Board
+- \7. nädal: mängu loogika, disain
+- \8. nädal: mängu loogika, Unit tests
+- \9. nädal: GUI alustamine
+- \10. nädal: GUI
+- \11. nädal: GUI?
+- \12. nädal: ühendus chess engine'ga?
+- \13. nädal: ??????
+- \14. nädal: ??????
+- \15. nädal: ??????
 - \16. nädal: Lõplik esitamine
 
 Kasutatav tehnoloogia
-----------------------
+---------------------
 
 JavaFX
 
