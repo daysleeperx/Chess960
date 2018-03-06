@@ -31,34 +31,7 @@ Funktsionaalsus
 Ekraanivaated
 -------------
 
-*Kirjeldada erinevad ekraanivaated*
-
-**Esileht**
-
-Nupud: 
-
-
-**Mäng**
-
-
-**Juhised**
-
-*Vangerdamine*
-
- Olenemata kuninga ja vankri asukohast algseisus on vangerdamisel nende sihtväljad samad, mis tavalises males. Ka järgmised tingimused peavad olema täidetud: 
-Kuningas ja vangerdatav vanker pole teinud mängus ühtki käiku.
-Kuningas pole tules.
-Kuningas ja vanker ei hüppa üle teiste nuppude.
-Kuningas ei lliigu läbi tule ega lõpeta tule all oleval väljal.
-
-
-**Edetabel**
-
-
-
-**Seaded**
-
-
+*Coming Soon*
 
 
 Plaan
