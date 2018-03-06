@@ -1,12 +1,16 @@
 package Pieces;
 
 import Game.Player;
+import Game.Type;
 
 /**
  * Represent Queen class.
  */
 
 public class Queen extends Piece {
+
+    private Type type;
+
     /**
      * Class constructor.
      *
@@ -16,6 +20,12 @@ public class Queen extends Piece {
      */
     public Queen(int x, int y, Player player) {
         super(x, y, player);
+        this.type = Type.QUEEN;
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -28,4 +38,8 @@ public class Queen extends Piece {
         return new int[0];
     }
 
+    @Override
+    public String toString() {
+        return "\u2655";
+    }
 }

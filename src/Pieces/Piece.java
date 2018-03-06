@@ -1,6 +1,7 @@
 package Pieces;
 
 import Game.Player;
+import Game.Type;
 
 /**
  * Represent Piece class.
@@ -32,21 +33,28 @@ public abstract class Piece {
     //TODO: methods
 
     /**
+     * Get Type.
+     *
+     * @return Type
+     */
+    public abstract Type getType();
+
+    /**
      * Check if move is valid.
      *
      * @param goalX int X coordinate
      * @param goalY int Y coordinate
-     * @return
+     * @return true/false
      */
     public abstract boolean isValidMove(int goalX, int goalY);
 
     /**
      * Make the move. Draw the path.
      *
-     * @param startX
-     * @param startY
-     * @param finalX
-     * @param finalY
+     * @param startX int starting point
+     * @param startY int starting point
+     * @param finalX int goal
+     * @param finalY int goal
      * @return
      */
     public abstract int[] makeMove(int startX, int startY, int finalX, int finalY);

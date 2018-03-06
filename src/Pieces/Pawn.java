@@ -1,11 +1,15 @@
 package Pieces;
 
 import Game.Player;
+import Game.Type;
 
 /**
  * Represent Pawn class.
  */
 public class Pawn extends Piece {
+
+    private Type type;
+
     /**
      * Class constructor.
      *
@@ -15,6 +19,12 @@ public class Pawn extends Piece {
      */
     public Pawn(int x, int y, Player player) {
         super(x, y, player);
+        this.type = Type.PAWN;
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -25,5 +35,10 @@ public class Pawn extends Piece {
     @Override
     public int[] makeMove(int startX, int startY, int finalX, int finalY) {
         return new int[0];
+    }
+
+    @Override
+    public String toString() {
+        return "\u2659";
     }
 }
