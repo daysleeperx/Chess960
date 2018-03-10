@@ -1,8 +1,5 @@
-package Game;
+package pieces;
 
-/**
- * Represent
- */
 public enum Color {
     WHITE, BLACK
 }

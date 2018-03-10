@@ -1,7 +1,6 @@
-package Pieces;
+package pieces;
 
-import Game.Player;
-import Game.Type;
+import game.Player;
 
 /**
  * Represent Queen class.

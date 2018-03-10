@@ -1,13 +1,12 @@
-package Pieces;
+package pieces;
 
-import Game.Player;
-import Game.Type;
+import game.Player;
 
 /**
- * Represent Bishop class.
+ * Represent Knight class.
  */
 
-public class Bishop extends Piece {
+public class Knight extends Piece {
 
     private Type type;
 
@@ -18,10 +17,9 @@ public class Bishop extends Piece {
      * @param y Y coordinate
      * @param player Player object.
      */
-    public Bishop(int x, int y, Player player) {
-
+    public Knight(int x, int y, Player player) {
         super(x, y, player);
-        this.type = Type.BISHOP;
+        this.type = Type.KNIGHT;
     }
 
     @Override
@@ -41,11 +39,7 @@ public class Bishop extends Piece {
 
     @Override
     public String toString() {
-        return "\u2657";
+        return "\u2658";
     }
 
-    public static void main(String[] args) {
-        Piece b = new Bishop(2, 3, null);
-        System.out.println(b);
-    }
 }

@@ -1,7 +1,6 @@
-package Pieces;
+package pieces;
 
-import Game.Player;
-import Game.Type;
+import game.Player;
 
 /**
  * Represent Rook class.
@@ -24,9 +23,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public Type getType() {
-        return type;
-    }
+    public Type getType() { return type; }
 
     @Override
     public boolean isValidMove(int goalX, int goalY) {

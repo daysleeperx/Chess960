@@ -1,7 +1,6 @@
-package Pieces;
+package pieces;
 
-import Game.Player;
-import Game.Type;
+import game.Player;
 
 /**
  * Represent Piece class.
@@ -55,7 +54,7 @@ public abstract class Piece {
      * @param startY int starting point
      * @param finalX int goal
      * @param finalY int goal
-     * @return
+     * @return int array
      */
     public abstract int[] makeMove(int startX, int startY, int finalX, int finalY);
 

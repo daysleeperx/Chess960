@@ -1,13 +1,12 @@
-package Pieces;
+package pieces;
 
-import Game.Player;
-import Game.Type;
+import game.Player;
 
 /**
- * Represent Knight class.
+ * Represent King class.
  */
 
-public class Knight extends Piece {
+public class King extends Piece {
 
     private Type type;
 
@@ -18,9 +17,9 @@ public class Knight extends Piece {
      * @param y Y coordinate
      * @param player Player object.
      */
-    public Knight(int x, int y, Player player) {
+    public King(int x, int y, Player player) {
         super(x, y, player);
-        this.type = Type.KNIGHT;
+        this.type = Type.KING;
     }
 
     @Override
@@ -40,7 +39,6 @@ public class Knight extends Piece {
 
     @Override
     public String toString() {
-        return "\u2658";
+        return "\u2654";
     }
-
 }
