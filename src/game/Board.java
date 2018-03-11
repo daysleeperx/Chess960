@@ -43,16 +43,20 @@ public class Board {
 
         pieces.add(new King(4, 0, null));
         pieces.add(new King(4, 7, null));
+
         pieces.add(new Queen(3, 0, null));
         pieces.add(new Queen(3, 7, null));
+
         pieces.add(new Knight(1, 0, null));
         pieces.add(new Knight(1, 7, null));
         pieces.add(new Knight(6, 0, null));
         pieces.add(new Knight(6, 7, null));
+
         pieces.add(new Bishop(2, 0, null));
         pieces.add(new Bishop(2, 7, null));
         pieces.add(new Bishop(5, 0, null));
         pieces.add(new Bishop(5, 7, null));
+
         pieces.add(new Rook(0, 0, null));
         pieces.add(new Rook(0, 7, null));
         pieces.add(new Rook(7, 0, null));
