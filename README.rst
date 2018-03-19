@@ -1,6 +1,8 @@
 **FischerRandom (Chess960)** 
 ============================
 
+.. image:: main.jpg
+
 *Fischeri malemängu rakendus* https://en.wikipedia.org/wiki/Chess960
 
 Fischreri male autoriks on eksmaailmameister Robert Fischer. Fischeri male erineb traditsioonilisest malest selle poolest, et mängijate figuuride algseis on juhuslik. Siiski eksisteerivad järgmised reeglid figuuride paigutusele:
@@ -38,8 +40,8 @@ Plaan
 -----
 
 - \4. nädal: projektiplaaniga alustamine/ MVC setup/ Struktuur
-- \5. nädal: Esimesed klassid (Pieces)
-- \6. nädal: projektiplaani esitamine, Klassid Game, Player, Board
+- \5. nädal: Esimesed klassid (pieces)
+- \6. nädal: projektiplaani esitamine, Klassid game, Player, Board
 - \7. nädal: mängu loogika, disain
 - \8. nädal: mängu loogika, Unit tests
 - \9. nädal: GUI alustamine
