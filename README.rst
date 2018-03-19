@@ -1,7 +1,7 @@
 **FischerRandom (Chess960)**
 ============================
 
-.. image:: chess.jpg
+.. image:: main.jpg
 
 *Fischeri malemängu rakendus* https://en.wikipedia.org/wiki/Chess960
 
@@ -27,15 +27,6 @@ Funktsionaalsus
 
 - ühendus chess engine'ga (Stockfish, Houdini etc)
 - või oma variant (Alpha-Beta, Minimax)
-
-
-
-Design
-------
-
-.. image::uml.png
-
-
 
 
 Plaan
