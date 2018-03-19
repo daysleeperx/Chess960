@@ -1,5 +1,5 @@
-
 **FischerRandom (Chess960)**
+============================
 
 .. image:: main.jpg
 
