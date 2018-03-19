@@ -1,7 +1,7 @@
 **FischerRandom (Chess960)**
 ============================
 
-.. image:: main.jpg
+.. image:: chess.jpg
 
 *Fischeri malemängu rakendus* https://en.wikipedia.org/wiki/Chess960
 
@@ -30,10 +30,12 @@ Funktsionaalsus
 
 
 
-Ekraanivaated
--------------
+Design
+------
 
-*Coming Soon*
+.. image::uml.png
+
+
 
 
 Plaan
