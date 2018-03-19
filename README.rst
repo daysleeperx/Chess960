@@ -1,6 +1,5 @@
-.. role:: red
-:red: **FischerRandom (Chess960)**
-==================================
+
+**FischerRandom (Chess960)**
 
 .. image:: main.jpg
 
