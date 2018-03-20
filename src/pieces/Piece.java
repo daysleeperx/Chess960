@@ -47,15 +47,6 @@ public abstract class Piece {
      */
     public abstract boolean isValidMove(int goalX, int goalY);
 
-    /**
-     * Make the move. Draw the path.
-     *
-     * @param startX int starting point
-     * @param startY int starting point
-     * @param finalX int goal
-     * @param finalY int goal
-     * @return int array
-     */
     public abstract int[] makeMove(int startX, int startY, int finalX, int finalY);
 
 }

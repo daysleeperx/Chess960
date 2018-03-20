@@ -2,9 +2,7 @@ package game;
 
 import pieces.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represent Board.
@@ -14,7 +12,7 @@ public class Board {
     /**
      * Board representation as an array of Square objects.
      */
-    private Square[][] boardArray;
+    public Square[][] boardArray;
     /**
      * Class constructor.
      */
@@ -67,16 +65,19 @@ public class Board {
 
     }
 
+    public void printGame() {
+        for (int row = boardArray.length - 1; row >= 0; row--) {
+            System.out.println(Arrays.deepToString(boardArray[row]));
+        }
+    }
+
     @Override
     public String toString() {
         return Arrays.deepToString(boardArray);
     }
 
     public static void main(String[] args) {
-        Board b = new Board();
-        b.setUpPieces();
-        for (Square[] row: b.boardArray) {
-            System.out.println(Arrays.deepToString(row));
-        }
+
+
     }
 }
