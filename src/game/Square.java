@@ -29,6 +29,8 @@ public class Square {
         this.x = x;
         this.y = y;
         this.piece = piece;
+
+        //TODO: parse to Chess notation
     }
     /**
      * Alternative constructor.
