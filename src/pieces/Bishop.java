@@ -29,12 +29,16 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean isValidMove(int goalX, int goalY) {
-        return false;
+    public boolean isValidMove(int targetX, int targetY) {
+        int col = Math.abs(this.x - targetX);
+        int row = Math.abs(this.y - targetY);
+
+        // diagonal moves only
+        return col == row;
     }
 
     @Override
-    public int[] makeMove(int startX, int startY, int finalX, int finalY) {
+    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
         return new int[0];
     }
 

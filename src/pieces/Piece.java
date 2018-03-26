@@ -14,7 +14,7 @@ public abstract class Piece {
     /**
      * Player.
      */
-    public Player player;
+    private Player player;
 
     /**
      * Class constructor.
@@ -28,9 +28,6 @@ public abstract class Piece {
         this.y = y;
         this.player = player;
     }
-
-    //TODO: methods
-
     /**
      * Get Type.
      *
@@ -41,12 +38,12 @@ public abstract class Piece {
     /**
      * Check if move is valid.
      *
-     * @param goalX int X coordinate
-     * @param goalY int Y coordinate
+     * @param targetX int X coordinate
+     * @param targetY int Y coordinate
      * @return true/false
      */
-    public abstract boolean isValidMove(int goalX, int goalY);
+    public abstract boolean isValidMove(int targetX, int targetY);
 
-    public abstract int[] makeMove(int startX, int startY, int finalX, int finalY);
+    public abstract int[] drawPath(int startX, int startY, int finalX, int finalY);
 
 }

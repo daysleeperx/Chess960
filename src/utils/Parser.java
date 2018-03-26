@@ -1,4 +1,4 @@
-package game;
+package utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.Map;
  * Parses user input into chess notation.
  */
 
-final class Parser {
+public final class Parser {
     private static Map<Character, Integer> sq = new HashMap<>();
 
     /**

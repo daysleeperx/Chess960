@@ -9,6 +9,7 @@ import game.Player;
 public class King extends Piece {
 
     private Type type;
+    private boolean hasMoved;
 
     /**
      * Class constructor.
@@ -27,13 +28,23 @@ public class King extends Piece {
         return type;
     }
 
-    @Override
-    public boolean isValidMove(int goalX, int goalY) {
-        return false;
+    public boolean isHasMoved() {
+        return hasMoved;
     }
 
     @Override
-    public int[] makeMove(int startX, int startY, int finalX, int finalY) {
+    public boolean isValidMove(int targetX, int targetY) {
+        int col = Math.abs(this.x - targetX);
+        int row = Math.abs(this.y - targetY);
+
+        return (col <= 1 && row <= 1);
+
+        //TODO: Castling move
+
+    }
+
+    @Override
+    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
         return new int[0];
     }
 

@@ -2,11 +2,9 @@ package game;
 
 import pieces.Piece;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-import static game.Parser.parseInput;
+import static utils.Parser.parseInput;
 
 /**
  * Represent Game.
@@ -24,9 +22,13 @@ public class Game {
             String in = sc.nextLine();
             if (in.equals("quit")) break;
             int[] m = parseInput(in);
-            Piece current = b.boardArray[m[1]][m[0]].getPiece();
-            b.boardArray[m[3]][m[2]].setPiece(current);
-            b.boardArray[m[1]][m[0]].setPiece(null);
+            int col = m[0];
+            int row = m[1];
+            int col2 = m[2];
+            int row2 = m[3];
+            Piece current = b.boardArray[row][col].getPiece();
+            b.boardArray[row2][col2].setPiece(current);
+            b.boardArray[row][col].setPiece(null);
         }
     }
 

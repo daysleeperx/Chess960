@@ -28,12 +28,16 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean isValidMove(int goalX, int goalY) {
-        return false;
+    public boolean isValidMove(int targetX, int targetY) {
+        int col = Math.abs(this.x - targetX);
+        int row = Math.abs(this.y - targetY);
+
+        return ((row == 2 && col == 1) || (row == 1 && col == 2));
+
     }
 
     @Override
-    public int[] makeMove(int startX, int startY, int finalX, int finalY) {
+    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
         return new int[0];
     }
 

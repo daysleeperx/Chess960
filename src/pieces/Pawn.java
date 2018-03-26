@@ -8,6 +8,7 @@ import game.Player;
 public class Pawn extends Piece {
 
     private Type type;
+    private boolean hasMoved;
 
     /**
      * Class constructor.
@@ -21,18 +22,23 @@ public class Pawn extends Piece {
         this.type = Type.PAWN;
     }
 
+    public boolean isHasMoved() {
+        return hasMoved;
+    }
+
     @Override
     public Type getType() {
         return type;
     }
 
     @Override
-    public boolean isValidMove(int goalX, int goalY) {
+    public boolean isValidMove(int targetX, int targetY) {
+
         return false;
     }
 
     @Override
-    public int[] makeMove(int startX, int startY, int finalX, int finalY) {
+    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
         return new int[0];
     }
 

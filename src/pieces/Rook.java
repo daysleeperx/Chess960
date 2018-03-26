@@ -9,6 +9,7 @@ import game.Player;
 public class Rook extends Piece {
 
     private Type type;
+    private boolean hasMoved;
 
     /**
      * Class constructor.
@@ -22,16 +23,25 @@ public class Rook extends Piece {
 
     }
 
+    public boolean isHasMoved() {
+        return hasMoved;
+    }
+
     @Override
     public Type getType() { return type; }
 
     @Override
-    public boolean isValidMove(int goalX, int goalY) {
-        return false;
+    public boolean isValidMove(int targetX, int targetY) {
+        int col = Math.abs(this.x - targetX);
+        int row = Math.abs(this.y - targetY);
+
+        // horizontal and vertical only
+        return (col == 0) || (row == 0);
+
     }
 
     @Override
-    public int[] makeMove(int startX, int startY, int finalX, int finalY) {
+    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
         return new int[0];
     }
 
