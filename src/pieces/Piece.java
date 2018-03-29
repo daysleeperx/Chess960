@@ -1,7 +1,5 @@
 package pieces;
 
-import game.Player;
-
 /**
  * Represent Piece class.
  */
@@ -14,19 +12,18 @@ public abstract class Piece {
     /**
      * Player.
      */
-    private Player player;
+    Color color;
 
     /**
      * Class constructor.
-     *
-     * @param x int X coordinate
+     *  @param x int X coordinate
      * @param y int Y coordinate
-     * @param player Player object
+     * @param color Player object
      */
-    public Piece(int x, int y, Player player) {
+    public Piece(int x, int y, Color color) {
         this.x = x;
         this.y = y;
-        this.player = player;
+        this.color = color;
     }
     /**
      * Get Type.

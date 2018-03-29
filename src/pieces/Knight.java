@@ -1,6 +1,5 @@
 package pieces;
 
-import game.Player;
 
 /**
  * Represent Knight class.
@@ -15,10 +14,10 @@ public class Knight extends Piece {
      *
      * @param x X coordinate
      * @param y Y coordinate
-     * @param player Player object.
+     * @param color Color object.
      */
-    public Knight(int x, int y, Player player) {
-        super(x, y, player);
+    public Knight(int x, int y, Color color) {
+        super(x, y, color);
         this.type = Type.KNIGHT;
     }
 

@@ -1,6 +1,5 @@
 package pieces;
 
-import game.Player;
 
 /**
  * Represent Bishop class.
@@ -15,11 +14,11 @@ public class Bishop extends Piece {
      *
      * @param x X coordinate
      * @param y Y coordinate
-     * @param player Player object.
+     * @param color Color object.
      */
-    public Bishop(int x, int y, Player player) {
+    public Bishop(int x, int y, Color color) {
 
-        super(x, y, player);
+        super(x, y, color);
         this.type = Type.BISHOP;
     }
 

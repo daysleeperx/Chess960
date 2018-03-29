@@ -51,7 +51,12 @@ public class QueenTest {
         assertFalse(queen.isValidMove(5, 2));
         assertFalse(queen.isValidMove(5, 4));
         assertFalse(queen.isValidMove(4, 5));
-        // long weird moves
+
+    }
+
+    @Test
+    public void testLongAndWeirdMoves() {
+        queen = new Queen(3, 3, null);
         assertFalse(queen.isValidMove(6, 4));
         assertFalse(queen.isValidMove(1, 4));
         assertFalse(queen.isValidMove(8, 4));

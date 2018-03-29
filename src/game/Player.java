@@ -1,5 +1,7 @@
 package game;
 
+import pieces.Color;
+
 /**
  * Represent Player class.
  */

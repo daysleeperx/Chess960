@@ -1,6 +1,5 @@
 package pieces;
 
-import game.Player;
 
 /**
  * Represent King class.
@@ -16,10 +15,10 @@ public class King extends Piece {
      *
      * @param x X coordinate
      * @param y Y coordinate
-     * @param player Player object.
+     * @param color Color object.
      */
-    public King(int x, int y, Player player) {
-        super(x, y, player);
+    public King(int x, int y, Color color) {
+        super(x, y, color);
         this.type = Type.KING;
     }
 
@@ -50,6 +49,9 @@ public class King extends Piece {
 
     @Override
     public String toString() {
+        if (this.color == Color.BLACK) {
+            return "\u265A";
+        }
         return "\u2654";
     }
 }

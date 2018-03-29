@@ -1,6 +1,5 @@
 package pieces;
 
-import game.Player;
 
 /**
  * Represent Rook class.
@@ -15,10 +14,10 @@ public class Rook extends Piece {
      * Class constructor.
      *  @param x X coordinate
      * @param y Y coordinate
-     * @param player Player object.
+     * @param color Color object.
      */
-    public Rook(int x, int y, Player player) {
-        super(x, y, player);
+    public Rook(int x, int y, Color color) {
+        super(x, y, color);
         this.type = Type.ROOK;
 
     }
