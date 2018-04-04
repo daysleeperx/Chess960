@@ -1,5 +1,7 @@
 package pieces;
 
+import java.util.List;
+
 /**
  * Represent Piece class.
  */
@@ -41,6 +43,6 @@ public abstract class Piece {
      */
     public abstract boolean isValidMove(int targetX, int targetY);
 
-    public abstract int[] drawPath(int startX, int startY, int finalX, int finalY);
+    public abstract List<int[]> drawPath(int targetX, int targetY);
 
 }

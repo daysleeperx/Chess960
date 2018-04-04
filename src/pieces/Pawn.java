@@ -1,6 +1,8 @@
 package pieces;
 
 
+import java.util.List;
+
 /**
  * Represent Pawn class.
  */
@@ -39,29 +41,27 @@ public class Pawn extends Piece {
         int col =  targetX - this.x;
         int row = targetY - this.y;
 
-        if (this.color == Color.WHITE) {
-            if (!isHasMoved()) {
-                return (col == 0) && (row == 2 || row == 1);
-            }
-            return (col == 0) && (row == 1);
+        switch (color) {
+            case WHITE:
+                if (!isHasMoved())
+                    return (col == 0) && (row == 2 || row == 1);
+
+                return (col == 0) && (row == 1);
+            case BLACK:
+                if (!isHasMoved())
+                    return (col == 0) && (row == -2 || row == -1);
+
+                return (col == 0) && (row == -1);
+
+             default: return false;
         }
-
-        if (this.color == Color.BLACK) {
-            if (!isHasMoved()) {
-                return (col == 0) && (row == -2 || row == -1);
-            }
-            return (col == 0) && (row == -1);
-        }
-
-        return false;
-
         // TODO: capture moves
 
     }
 
     @Override
-    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
-        return new int[0];
+    public List<int[]> drawPath(int targetX, int targetY) {
+        return null;
     }
 
     @Override

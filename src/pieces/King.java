@@ -1,6 +1,8 @@
 package pieces;
 
 
+import java.util.List;
+
 /**
  * Represent King class.
  */
@@ -43,8 +45,8 @@ public class King extends Piece {
     }
 
     @Override
-    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
-        return new int[0];
+    public List<int[]> drawPath(int targetX, int targetY) {
+        return null;
     }
 
     @Override

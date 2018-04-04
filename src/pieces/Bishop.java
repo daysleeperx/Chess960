@@ -1,6 +1,10 @@
 package pieces;
 
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Represent Bishop class.
  */
@@ -37,12 +41,32 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public int[] drawPath(int startX, int startY, int finalX, int finalY) {
-        return new int[0];
+    public List<int[]> drawPath(int targetX, int targetY) {
+        List<int[]> path = new LinkedList<>();
+        int pathLength = Math.abs(targetX - this.x);
+
+        int directionX = (targetX > this.x) ? 1: -1; // check the x direction
+        int directionY = (targetY > this.y) ? 1: -1; // check the y direction
+
+        for (int i = 1; i <= pathLength; i++) {
+                int[] currentPos = new int[2];
+                currentPos[0] = this.x + directionX * i;
+                currentPos[1] = this.y + directionY * i;
+                path.add(currentPos);
+            }
+        return path;
     }
 
     @Override
     public String toString() {
         return "\u2657";
+    }
+
+    public static void main(String[] args) {
+        Bishop bishop = new Bishop(0, 7, null);
+        for (int[] step: bishop.drawPath(7, 0)) {
+            System.out.println(Arrays.toString(step));
+        }
+
     }
 }
