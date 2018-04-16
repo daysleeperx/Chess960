@@ -1,6 +1,7 @@
 package pieces;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ public class Pawn extends Piece {
     /**
      * Class constructor.
      *
-     * @param x X coordinate
-     * @param y Y coordinate
+     * @param x     X coordinate
+     * @param y     Y coordinate
      * @param color Color object.
      */
     public Pawn(int x, int y, Color color) {
@@ -38,7 +39,7 @@ public class Pawn extends Piece {
 
     @Override
     public boolean isValidMove(int targetX, int targetY) {
-        int col =  targetX - this.x;
+        int col = targetX - this.x;
         int row = targetY - this.y;
 
         switch (color) {
@@ -53,19 +54,33 @@ public class Pawn extends Piece {
 
                 return (col == 0) && (row == -1);
 
-             default: return false;
+            default:
+                return false;
         }
         // TODO: capture moves
-
     }
 
     @Override
-    public List<int[]> drawPath(int targetX, int targetY) {
-        return null;
+    public List<int[]> generatePath(int targetX, int targetY) {
+        List<int[]> path = new LinkedList<>();
+        int pathLength = Math.abs(targetY - this.y);
+
+        int directionX = 0;
+        int directionY = (this.color == Color.WHITE) ? 1 : -1; // check the Y direction (-1 if Black)
+
+        for (int i = 1; i <= pathLength; i++) {
+            int[] currentPos = new int[2];
+            currentPos[0] = this.x + directionX * i;
+            currentPos[1] = this.y + directionY * i;
+            path.add(currentPos);
+        }
+
+        return path;
     }
 
     @Override
     public String toString() {
+        if (color == Color.BLACK) return "\u265F";
         return "\u2659";
     }
 }

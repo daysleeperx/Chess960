@@ -1,6 +1,7 @@
 package pieces;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -45,15 +46,19 @@ public class King extends Piece {
     }
 
     @Override
-    public List<int[]> drawPath(int targetX, int targetY) {
-        return null;
+    public List<int[]> generatePath(int targetX, int targetY) {
+        List<int[]> path = new LinkedList<>();
+
+        // path consists only of one element
+        int[] currentPos = {targetX, targetY};
+        path.add(currentPos);
+
+        return path;
     }
 
     @Override
     public String toString() {
-        if (this.color == Color.BLACK) {
-            return "\u265A";
-        }
+        if (this.color == Color.BLACK) return "\u265A";
         return "\u2654";
     }
 }

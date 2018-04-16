@@ -1,5 +1,6 @@
 package game;
 
+import board.Board;
 import pieces.Piece;
 
 import java.util.Scanner;
@@ -16,19 +17,22 @@ public class Game {
     public void game() {
         Board b = new Board();
         b.setUpPieces();
-        while (true) {
+        while (true) { // Main Game loop
             b.printGame();
             Scanner sc = new Scanner(System.in);
             String in = sc.nextLine();
             if (in.equals("quit")) break;
-            int[] m = parseInput(in);
-            int col = m[0];
-            int row = m[1];
-            int col2 = m[2];
-            int row2 = m[3];
-            Piece current = b.boardArray[row][col].getPiece();
-            b.boardArray[row2][col2].setPiece(current);
-            b.boardArray[row][col].setPiece(null);
+            int[] move = parseInput(in);
+            int col = move[0];
+            int row = move[1];
+            int targetX = move[2];
+            int targetY = move[3];
+            Piece piece = b.boardArray[row][col].getPiece();
+            if (piece.isValidMove(targetX, targetY) && b.isValidPath(piece, targetX, targetY)) {
+                b.executeMove(piece, targetX, targetY);
+            } else {
+                System.out.println("Invalid Move!");
+            }
         }
     }
 

@@ -1,7 +1,7 @@
 package pieces;
 
 
-import java.util.Arrays;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class Bishop extends Piece {
     /**
      * Class constructor.
      *
-     * @param x X coordinate
-     * @param y Y coordinate
+     * @param x     X coordinate
+     * @param y     Y coordinate
      * @param color Color object.
      */
     public Bishop(int x, int y, Color color) {
@@ -41,32 +41,28 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public List<int[]> drawPath(int targetX, int targetY) {
+    public List<int[]> generatePath(int targetX, int targetY) {
         List<int[]> path = new LinkedList<>();
         int pathLength = Math.abs(targetX - this.x);
 
-        int directionX = (targetX > this.x) ? 1: -1; // check the x direction
-        int directionY = (targetY > this.y) ? 1: -1; // check the y direction
+        int directionX = (targetX > this.x) ? 1 : -1; // check the x direction
+        int directionY = (targetY > this.y) ? 1 : -1; // check the y direction
 
         for (int i = 1; i <= pathLength; i++) {
-                int[] currentPos = new int[2];
-                currentPos[0] = this.x + directionX * i;
-                currentPos[1] = this.y + directionY * i;
-                path.add(currentPos);
-            }
+            int[] currentPos = new int[2];
+            currentPos[0] = this.x + directionX * i;
+            currentPos[1] = this.y + directionY * i;
+            path.add(currentPos);
+        }
+
         return path;
     }
 
     @Override
     public String toString() {
+        if (color == Color.BLACK) return "\u265D";
         return "\u2657";
     }
 
-    public static void main(String[] args) {
-        Bishop bishop = new Bishop(0, 7, null);
-        for (int[] step: bishop.drawPath(7, 0)) {
-            System.out.println(Arrays.toString(step));
-        }
-
-    }
 }
+

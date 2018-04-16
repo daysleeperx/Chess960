@@ -1,7 +1,6 @@
 package pieces;
 
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,12 +39,11 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<int[]> drawPath(int targetX, int targetY) {
+    public List<int[]> generatePath(int targetX, int targetY) {
         List<int[]> path = new LinkedList<>();
 
-        int[] currentPos = new int[2];
-        currentPos[0] = targetX;
-        currentPos[1] = targetY;
+        // path consists only of one element
+        int[] currentPos = {targetX, targetY};
         path.add(currentPos);
 
         return path;
@@ -53,15 +51,8 @@ public class Knight extends Piece {
 
     @Override
     public String toString() {
+        if (color == Color.BLACK) return "\u265E";
         return "\u2658";
     }
-
-    public static void main(String[] args) {
-        Knight knight = new Knight(3, 3, null);
-        for (int[] step: knight.drawPath(2, 5)) {
-            System.out.println(Arrays.toString(step));
-        }
-
-    }
-
 }
+

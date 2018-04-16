@@ -5,6 +5,10 @@ import org.junit.Test;
 import pieces.King;
 import pieces.Type;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static org.junit.Assert.*;
 
 public class KingTest {
@@ -46,6 +50,46 @@ public class KingTest {
     }
 
     @Test
-    public void drawPath() {
+    public void drawPathBasic() {
+        // all possible directions
+        List<int[]> testPath = new ArrayList<>();
+        testPath.add(new int[]{4, 5});
+        assertEquals(1, king.generatePath(4, 5).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(4, 5).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{4, 3});
+        assertEquals(1, king.generatePath(4, 3).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(4, 3).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{5, 3});
+        assertEquals(1, king.generatePath(5, 3).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(5, 3).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{5, 5});
+        assertEquals(1, king.generatePath(5, 5).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(5, 5).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{3, 5});
+        assertEquals(1, king.generatePath(3, 5).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(3, 5).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{3, 3});
+        assertEquals(1, king.generatePath(3, 3).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(3, 3).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{5, 4});
+        assertEquals(1, king.generatePath(5, 4).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(5, 4).get(i)));
+
+        testPath.clear();
+        testPath.add(new int[]{3, 5});
+        assertEquals(1, king.generatePath(3, 5).size());
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(3, 5).get(i)));
     }
 }

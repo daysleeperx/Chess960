@@ -6,6 +6,10 @@ import pieces.Color;
 import pieces.Pawn;
 import pieces.Type;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static org.junit.Assert.*;
 
 public class PawnTest {
@@ -15,7 +19,6 @@ public class PawnTest {
     public void setUp() {
         whitePawn = new Pawn(3, 1, Color.WHITE);
         blackPawn = new Pawn(3, 6, Color.BLACK);
-
     }
 
     @Test
@@ -67,6 +70,26 @@ public class PawnTest {
     }
 
     @Test
-    public void drawPath() {
+    public void drawPathBasic() {
+        whitePawn.setX(4);
+        List<int[]> testPath = new LinkedList<>();
+        // from e2 to e4
+        testPath.add(new int[] {4, 2});
+        testPath.add(new int[] {4, 3});
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), whitePawn.generatePath(4, 3).get(i)));
+        // from e2 to e3
+        testPath.clear();
+        testPath.add(new int[] {4, 2});
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), whitePawn.generatePath(4, 2).get(i)));
+        // from e7 to e5
+        testPath.clear();
+        blackPawn.setX(4);
+        testPath.add(new int[] {4, 5});
+        testPath.add(new int[] {4, 4});
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), blackPawn.generatePath(4, 4).get(i)));
+        // from e7 to e6
+        testPath.clear();
+        testPath.add(new int[] {4, 5});
+        IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), blackPawn.generatePath(4, 5).get(i)));
     }
 }

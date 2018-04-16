@@ -1,6 +1,7 @@
 package pieces;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,14 +15,14 @@ public class Rook extends Piece {
 
     /**
      * Class constructor.
-     *  @param x X coordinate
-     * @param y Y coordinate
+     *
+     * @param x     X coordinate
+     * @param y     Y coordinate
      * @param color Color object.
      */
     public Rook(int x, int y, Color color) {
         super(x, y, color);
         this.type = Type.ROOK;
-
     }
 
     public boolean isHasMoved() {
@@ -29,7 +30,9 @@ public class Rook extends Piece {
     }
 
     @Override
-    public Type getType() { return type; }
+    public Type getType() {
+        return type;
+    }
 
     @Override
     public boolean isValidMove(int targetX, int targetY) {
@@ -42,13 +45,31 @@ public class Rook extends Piece {
     }
 
     @Override
-    public List<int[]> drawPath(int targetX, int targetY) {
+    public List<int[]> generatePath(int targetX, int targetY) {
+        List<int[]> path = new LinkedList<>();
+        int directionX = 0;
+        int directionY = 0;
+        int pathLength = (this.x == targetX) ? Math.abs(targetY - this.y) : Math.abs(targetX - this.x);
 
-        return null;
+        // if rook moves vertically
+        if (this.x == targetX) directionY = (targetY > this.y) ? 1 : -1; // check the y direction
+
+        // if rook moves horizontally
+        if (this.y == targetY) directionX = (targetX > this.x) ? 1 : -1; // check the x direction
+
+        for (int i = 1; i <= pathLength; i++) {
+            int[] currentPos = new int[2];
+            currentPos[0] = this.x + directionX * i;
+            currentPos[1] = this.y + directionY * i;
+            path.add(currentPos);
+        }
+
+        return path;
     }
 
     @Override
     public String toString() {
+        if (color == Color.BLACK) return "\u265C";
         return "\u2656";
     }
 }
