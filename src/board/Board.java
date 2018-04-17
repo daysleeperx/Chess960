@@ -3,10 +3,12 @@ package board;
 import pieces.*;
 import square.Square;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Represent Board.
+ * Represent Board Class.
  */
 
 public class Board {
@@ -16,10 +18,15 @@ public class Board {
     public Square[][] boardArray;
 
     /**
-     * Class constructor.
+     * Class constructor. Creates and empty board.
      */
     public Board() {
         boardArray = new Square[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                boardArray[i][j] = new Square(j, i);
+            }
+        }
     }
 
     /**
@@ -27,46 +34,66 @@ public class Board {
      * The 960 shuffle should take also place in this method.
      */
     public void setUpPieces() {
+        setUpWhitePieces();
+        setUpBlackPieces();
+    }
 
-        List<Piece> pieces = new ArrayList<>();
+    /**
+     * Sets up White's pieces.
+     */
+    public void setUpWhitePieces() {
+        List<Piece> whitePieces = new ArrayList<>();
 
-        // adding Square objects and pawns
+        // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 1) {
                     boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.WHITE));
-                } else if (i == 6) {
-                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.BLACK));
-                } else {
-                    boardArray[i][j] = new Square(j, i);
                 }
             }
         }
 
-        pieces.add(new King(4, 0, Color.WHITE));
-        pieces.add(new King(4, 7, Color.BLACK));
-
-        pieces.add(new Queen(3, 0, Color.WHITE));
-        pieces.add(new Queen(3, 7, Color.BLACK));
-
-        pieces.add(new Knight(1, 0, Color.WHITE));
-        pieces.add(new Knight(1, 7, Color.BLACK));
-        pieces.add(new Knight(6, 0, Color.WHITE));
-        pieces.add(new Knight(6, 7, Color.BLACK));
-
-        pieces.add(new Bishop(2, 0, Color.WHITE));
-        pieces.add(new Bishop(2, 7, Color.BLACK));
-        pieces.add(new Bishop(5, 0, Color.WHITE));
-        pieces.add(new Bishop(5, 7, Color.BLACK));
-
-        pieces.add(new Rook(0, 0, Color.WHITE));
-        pieces.add(new Rook(0, 7, Color.BLACK));
-        pieces.add(new Rook(7, 0, Color.WHITE));
-        pieces.add(new Rook(7, 7, Color.BLACK));
-
-        pieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
+        // set up white pieces
+        whitePieces.add(new King(4, 0, Color.WHITE));
+        whitePieces.add(new Queen(3, 0, Color.WHITE));
+        whitePieces.add(new Knight(1, 0, Color.WHITE));
+        whitePieces.add(new Knight(6, 0, Color.WHITE));
+        whitePieces.add(new Bishop(2, 0, Color.WHITE));
+        whitePieces.add(new Bishop(5, 0, Color.WHITE));
+        whitePieces.add(new Rook(0, 0, Color.WHITE));
+        whitePieces.add(new Rook(7, 0, Color.WHITE));
 
 
+        whitePieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
+    }
+
+    /**
+     * Sets up Black's pieces.
+     */
+    public void setUpBlackPieces() {
+        List<Piece> blackPieces = new ArrayList<>();
+
+        // set up pawns
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (i == 6) {
+                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.BLACK));
+                }
+            }
+        }
+
+        // set up black pieces
+        blackPieces.add(new King(4, 7, Color.BLACK));
+        blackPieces.add(new Queen(3, 7, Color.BLACK));
+        blackPieces.add(new Knight(1, 7, Color.BLACK));
+        blackPieces.add(new Knight(6, 7, Color.BLACK));
+        blackPieces.add(new Bishop(2, 7, Color.BLACK));
+        blackPieces.add(new Bishop(5, 7, Color.BLACK));
+        blackPieces.add(new Rook(0, 7, Color.BLACK));
+        blackPieces.add(new Rook(7, 7, Color.BLACK));
+
+
+        blackPieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
     }
 
     /**
@@ -129,7 +156,7 @@ public class Board {
      */
     public boolean isValidTarget(Piece piece, int targetX, int targetY) {
         return (!boardArray[targetY][targetX].isOccupied()
-                || boardArray[targetY][targetY].getPiece().getColor() != piece.getColor());
+                || boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
     }
 
     /**
@@ -165,10 +192,5 @@ public class Board {
     @Override
     public String toString() {
         return Arrays.deepToString(boardArray);
-    }
-
-    public static void main(String[] args) {
-
-
     }
 }
