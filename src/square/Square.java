@@ -1,4 +1,4 @@
-package game;
+package square;
 
 import pieces.Piece;
 

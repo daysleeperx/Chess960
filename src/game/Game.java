@@ -1,12 +1,11 @@
 package game;
 
+import board.Board;
 import pieces.Piece;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-import static game.Parser.parseInput;
+import static utils.Parser.parseInput;
 
 /**
  * Represent Game.
@@ -18,15 +17,22 @@ public class Game {
     public void game() {
         Board b = new Board();
         b.setUpPieces();
-        while (true) {
+        while (true) { // Main Game loop
             b.printGame();
             Scanner sc = new Scanner(System.in);
             String in = sc.nextLine();
             if (in.equals("quit")) break;
-            int[] m = parseInput(in);
-            Piece current = b.boardArray[m[1]][m[0]].getPiece();
-            b.boardArray[m[3]][m[2]].setPiece(current);
-            b.boardArray[m[1]][m[0]].setPiece(null);
+            int[] move = parseInput(in);
+            int col = move[0];
+            int row = move[1];
+            int targetX = move[2];
+            int targetY = move[3];
+            Piece piece = b.boardArray[row][col].getPiece();
+            if (piece.isValidMove(targetX, targetY) && b.isValidPath(piece, targetX, targetY)) {
+                b.executeMove(piece, targetX, targetY);
+            } else {
+                System.out.println("Invalid Move!");
+            }
         }
     }
 

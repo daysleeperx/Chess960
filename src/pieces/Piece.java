@@ -1,6 +1,6 @@
 package pieces;
 
-import game.Player;
+import java.util.List;
 
 /**
  * Represent Piece class.
@@ -12,41 +12,60 @@ public abstract class Piece {
      */
     public int x, y;
     /**
-     * Player.
+     * Color.
      */
-    public Player player;
+    Color color;
 
     /**
      * Class constructor.
-     *
-     * @param x int X coordinate
+     *  @param x int X coordinate
      * @param y int Y coordinate
-     * @param player Player object
+     * @param color Player object
      */
-    public Piece(int x, int y, Player player) {
+    public Piece(int x, int y, Color color) {
         this.x = x;
         this.y = y;
-        this.player = player;
+        this.color = color;
     }
 
-    //TODO: methods
-
-    /**
-     * Get Type.
-     *
-     * @return Type
-     */
     public abstract Type getType();
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Color getColor() {
+        return color;
+    }
 
     /**
      * Check if move is valid.
      *
-     * @param goalX int X coordinate
-     * @param goalY int Y coordinate
+     * @param targetX int X coordinate
+     * @param targetY int Y coordinate
      * @return true/false
      */
-    public abstract boolean isValidMove(int goalX, int goalY);
+    public abstract boolean isValidMove(int targetX, int targetY);
 
-    public abstract int[] makeMove(int startX, int startY, int finalX, int finalY);
+    /**
+     * Generates a path of coordinates.
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return List of arrays
+     */
+    public abstract List<int[]> generatePath(int targetX, int targetY);
 
 }

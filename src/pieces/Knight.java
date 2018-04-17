@@ -1,6 +1,8 @@
 package pieces;
 
-import game.Player;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Represent Knight class.
@@ -15,10 +17,10 @@ public class Knight extends Piece {
      *
      * @param x X coordinate
      * @param y Y coordinate
-     * @param player Player object.
+     * @param color Color object.
      */
-    public Knight(int x, int y, Player player) {
-        super(x, y, player);
+    public Knight(int x, int y, Color color) {
+        super(x, y, color);
         this.type = Type.KNIGHT;
     }
 
@@ -28,18 +30,29 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean isValidMove(int goalX, int goalY) {
-        return false;
+    public boolean isValidMove(int targetX, int targetY) {
+        int col = Math.abs(this.x - targetX);
+        int row = Math.abs(this.y - targetY);
+
+        return ((row == 2 && col == 1) || (row == 1 && col == 2));
+
     }
 
     @Override
-    public int[] makeMove(int startX, int startY, int finalX, int finalY) {
-        return new int[0];
+    public List<int[]> generatePath(int targetX, int targetY) {
+        List<int[]> path = new LinkedList<>();
+
+        // path consists only of one element
+        int[] currentPos = {targetX, targetY};
+        path.add(currentPos);
+
+        return path;
     }
 
     @Override
     public String toString() {
+        if (color == Color.BLACK) return "\u265E";
         return "\u2658";
     }
-
 }
+
