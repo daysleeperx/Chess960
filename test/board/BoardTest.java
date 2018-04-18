@@ -139,7 +139,6 @@ public class BoardTest {
     public void isValidPathLeapingStartPosition() {
         // start position rook tries to move from a1 to a8
         board.setUpPieces();
-        board.printGame();
         assertFalse(board.isValidPath(board.boardArray[0][0].getPiece(), 0, 7));
         // black queen tries to move from d8 to d1
         assertFalse(board.isValidPath(board.boardArray[7][3].getPiece(), 0, 3));

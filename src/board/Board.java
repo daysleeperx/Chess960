@@ -5,6 +5,7 @@ import square.Square;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,6 +17,10 @@ public class Board {
      * Board representation as an array of Square objects.
      */
     public Square[][] boardArray;
+    private List<Piece> whitePieces = new ArrayList<>();
+    private List<Piece> blackPieces = new ArrayList<>();
+    private List<Piece> removedWhitePieces = new LinkedList<>();
+    private List<Piece> removedBlackPieces = new LinkedList<>();
 
     /**
      * Class constructor. Creates and empty board.
@@ -27,6 +32,26 @@ public class Board {
                 boardArray[i][j] = new Square(j, i);
             }
         }
+    }
+
+    public Square[][] getBoardArray() {
+        return boardArray;
+    }
+
+    public List<Piece> getRemovedWhitePieces() {
+        return removedWhitePieces;
+    }
+
+    public List<Piece> getRemovedBlackPieces() {
+        return removedBlackPieces;
+    }
+
+    public List<Piece> getBlackPieces() {
+        return blackPieces;
+    }
+
+    public List<Piece> getWhitePieces() {
+        return whitePieces;
     }
 
     /**
@@ -42,8 +67,6 @@ public class Board {
      * Sets up White's pieces.
      */
     public void setUpWhitePieces() {
-        List<Piece> whitePieces = new ArrayList<>();
-
         // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -71,8 +94,6 @@ public class Board {
      * Sets up Black's pieces.
      */
     public void setUpBlackPieces() {
-        List<Piece> blackPieces = new ArrayList<>();
-
         // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -94,6 +115,40 @@ public class Board {
 
 
         blackPieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
+    }
+
+    /**
+     * Moves the piece.
+     *
+     * @param piece   Piece object
+     * @param targetX int
+     * @param targetY int
+     */
+    public boolean movePiece(Piece piece, int targetX, int targetY) {
+        if (piece.getType() == Type.PAWN && pawnCanCapture((Pawn) piece, targetX, targetY)) {
+            if (piece.getColor() == Color.WHITE) {
+                removedBlackPieces.add(boardArray[targetY][targetX].getPiece());
+            } else {
+                removedWhitePieces.add(boardArray[targetY][targetX].getPiece());
+            }
+            executeMove(piece, targetX, targetY);
+            return true;
+        }
+
+        if (piece.isValidMove(targetX, targetY) && isValidPath(piece, targetX, targetY)) {
+            if (isCapture(piece, targetX, targetY)) {
+                if (piece.getColor() == Color.WHITE) {
+                    removedBlackPieces.add(boardArray[targetY][targetX].getPiece());
+                } else {
+                    removedWhitePieces.add(boardArray[targetY][targetX].getPiece());
+                }
+            }
+            executeMove(piece, targetX, targetY);
+            return true;
+        } else {
+            System.out.println("Invalid Move!");
+            return false;
+        }
     }
 
     /**
@@ -155,8 +210,18 @@ public class Board {
      * otherwise {@code false}
      */
     public boolean isValidTarget(Piece piece, int targetX, int targetY) {
+        // pawn logic is handled in pawnCanCapture movement
+        if (piece.getType() == Type.PAWN && boardArray[targetY][targetX].isOccupied()) return false;
         return (!boardArray[targetY][targetX].isOccupied()
                 || boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
+    }
+
+    public boolean isCapture(Piece piece, int targetX, int targetY) {
+        // pawn capture is handled separately in pawnCanCapture method
+        if (piece.getType() == Type.PAWN) return false;
+
+        return (boardArray[targetY][targetX].isOccupied()
+                && boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
     }
 
     /**
@@ -178,12 +243,43 @@ public class Board {
         // set new coordinates
         piece.setX(targetX);
         piece.setY(targetY);
+
+        // Casting done in order to set hasMoved to true
+        if (piece.getType() == Type.PAWN) ((Pawn) piece).setHasMoved(true);
+        if (piece.getType() == Type.ROOK) ((Rook) piece).setHasMoved(true);
+        if (piece.getType() == Type.KING) ((King) piece).setHasMoved(true);
+    }
+
+    /**
+     * Special method for handling pawn capturing logic.
+     *
+     * @param pawn    Pawn object
+     * @param targetX int
+     * @param targetY int
+     * @return
+     */
+    public boolean pawnCanCapture(Pawn pawn, int targetX, int targetY) {
+        if (pawn.getColor() == Color.WHITE) {
+            int col = Math.abs(targetX - pawn.getX());
+            int row = targetY - pawn.getY();
+
+            return ((col == 1) && (row == 1) && boardArray[targetY][targetX].isOccupied()
+                    && boardArray[targetY][targetX].getPiece().getColor() != Color.WHITE);
+        } else {
+            int col = Math.abs(targetX - pawn.getX());
+            int row = targetY - pawn.getY();
+
+            return ((col == 1) && (row == -1) && boardArray[targetY][targetX].isOccupied()
+                    && boardArray[targetY][targetX].getPiece().getColor() != Color.BLACK);
+        }
     }
 
     /**
      * Prints game.
      */
     public void printGame() {
+        System.out.println("Removed pieces: \nWhite" + removedWhitePieces);
+        System.out.println("Black" + removedBlackPieces);
         for (int row = boardArray.length - 1; row >= 0; row--) {
             System.out.println(Arrays.deepToString(boardArray[row]));
         }

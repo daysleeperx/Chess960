@@ -23,16 +23,16 @@ public class Game {
             String in = sc.nextLine();
             if (in.equals("quit")) break;
             int[] move = parseInput(in);
+            if (move.length == 0) {
+                System.out.println("Invalid input");
+                continue;
+            }
             int col = move[0];
             int row = move[1];
             int targetX = move[2];
             int targetY = move[3];
             Piece piece = b.boardArray[row][col].getPiece();
-            if (piece.isValidMove(targetX, targetY) && b.isValidPath(piece, targetX, targetY)) {
-                b.executeMove(piece, targetX, targetY);
-            } else {
-                System.out.println("Invalid Move!");
-            }
+            b.movePiece(piece, targetX, targetY);
         }
     }
 

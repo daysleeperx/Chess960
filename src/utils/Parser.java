@@ -28,6 +28,10 @@ public final class Parser {
         sq.put('h', 7);
         int[] out = new int[4];
         char[] inputArray = input.toCharArray();
+        // if input is invalid return empty array
+        if (input.length() != 4 || !sq.containsKey(input.charAt(0))
+            || !sq.containsKey(input.charAt(2)) || input.charAt(1) - '0' > 8
+                || input.charAt(3) - '0' > 8) return new int[0];
         out[0] = sq.get(inputArray[0]);
         out[1] = inputArray[1] - '0' - 1;
         out[2] = sq.get(inputArray[2]);

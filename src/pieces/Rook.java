@@ -29,6 +29,10 @@ public class Rook extends Piece {
         return hasMoved;
     }
 
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
     @Override
     public Type getType() {
         return type;

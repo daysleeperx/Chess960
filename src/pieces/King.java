@@ -34,6 +34,10 @@ public class King extends Piece {
         return hasMoved;
     }
 
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
     @Override
     public boolean isValidMove(int targetX, int targetY) {
         int col = Math.abs(this.x - targetX);
