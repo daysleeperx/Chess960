@@ -1,6 +1,8 @@
 package pieces;
 
 
+import player.Human;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +24,19 @@ public class Rook extends Piece {
      */
     public Rook(int x, int y, Color color) {
         super(x, y, color);
+        this.type = Type.ROOK;
+    }
+
+    /**
+     * Alternative constructor with Player object included.
+     *
+     * @param x      int X coordinate
+     * @param y      int Y coordinate
+     * @param color  Color enum
+     * @param player Player object
+     */
+    public Rook(int x, int y, Color color, Human player) {
+        super(x, y, color, player);
         this.type = Type.ROOK;
     }
 

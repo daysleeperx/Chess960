@@ -1,10 +1,12 @@
 package pawn;
 
+import game.Game;
 import org.junit.Before;
 import org.junit.Test;
 import pieces.Color;
 import pieces.Pawn;
 import pieces.Type;
+import player.Human;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +17,17 @@ import static org.junit.Assert.*;
 public class PawnTest {
     private Pawn whitePawn;
     private Pawn blackPawn;
+    private Human player1;
+    private Human player2;
+    private Game game;
+
     @Before
     public void setUp() {
-        whitePawn = new Pawn(3, 1, Color.WHITE);
-        blackPawn = new Pawn(3, 6, Color.BLACK);
+        game = new Game();
+        player1 = new Human(Color.WHITE, game);
+        player2 = new Human(Color.BLACK, game);
+        whitePawn = new Pawn(3, 1, Color.WHITE, player1);
+        blackPawn = new Pawn(3, 6, Color.BLACK, player2);
     }
 
     @Test

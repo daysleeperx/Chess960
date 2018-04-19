@@ -1,5 +1,7 @@
 package pieces;
 
+import player.Human;
+
 import java.util.List;
 
 /**
@@ -15,17 +17,37 @@ public abstract class Piece {
      * Color.
      */
     Color color;
+    /**
+     * Player.
+     */
+    Human player;
 
     /**
      * Class constructor.
-     *  @param x int X coordinate
+     * @param x int X coordinate
      * @param y int Y coordinate
-     * @param color Player object
+     * @param color Color enum
      */
     public Piece(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         this.color = color;
+        this.player = null;
+    }
+
+    /**
+     * Alternative constructor with Player object included.
+     *
+     * @param x int X coordinate
+     * @param y int Y coordinate
+     * @param color Color enum
+     * @param player Player object
+     */
+    public Piece(int x, int y, Color color, Human player) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.player = player;
     }
 
     public abstract Type getType();

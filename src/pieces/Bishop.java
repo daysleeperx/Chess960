@@ -2,6 +2,8 @@ package pieces;
 
 
 
+import player.Human;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,14 +16,26 @@ public class Bishop extends Piece {
     private Type type;
 
     /**
+     * Alternative constructor with Player object included.
+     *
+     * @param x      int X coordinate
+     * @param y      int Y coordinate
+     * @param color  Color enum
+     * @param player Player object
+     */
+    public Bishop(int x, int y, Color color, Human player) {
+        super(x, y, color, player);
+        this.type = Type.BISHOP;
+    }
+
+    /**
      * Class constructor.
      *
-     * @param x     X coordinate
-     * @param y     Y coordinate
-     * @param color Color object.
+     * @param x     int X coordinate
+     * @param y     int Y coordinate
+     * @param color Color enum
      */
     public Bishop(int x, int y, Color color) {
-
         super(x, y, color);
         this.type = Type.BISHOP;
     }

@@ -1,6 +1,7 @@
 package board;
 
 import pieces.*;
+import player.Human;
 import square.Square;
 
 import java.util.ArrayList;
@@ -55,36 +56,47 @@ public class Board {
     }
 
     /**
+     * Return specific square object.
+     *
+     * @param x int
+     * @param y int
+     * @return Square object
+     */
+    public Square getSquare(int x, int y) {
+        return boardArray[y][x];
+    }
+
+    /**
      * Set up pieces on the board. Starting position.
      * The 960 shuffle should take also place in this method.
      */
-    public void setUpPieces() {
-        setUpWhitePieces();
-        setUpBlackPieces();
+    public void setUpPieces(Human player1, Human player2) {
+        setUpWhitePieces(player1);
+        setUpBlackPieces(player2);
     }
 
     /**
      * Sets up White's pieces.
      */
-    public void setUpWhitePieces() {
+    public void setUpWhitePieces(Human player) {
         // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 1) {
-                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.WHITE));
+                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.WHITE, player));
                 }
             }
         }
 
         // set up white pieces
-        whitePieces.add(new King(4, 0, Color.WHITE));
-        whitePieces.add(new Queen(3, 0, Color.WHITE));
-        whitePieces.add(new Knight(1, 0, Color.WHITE));
-        whitePieces.add(new Knight(6, 0, Color.WHITE));
-        whitePieces.add(new Bishop(2, 0, Color.WHITE));
-        whitePieces.add(new Bishop(5, 0, Color.WHITE));
-        whitePieces.add(new Rook(0, 0, Color.WHITE));
-        whitePieces.add(new Rook(7, 0, Color.WHITE));
+        whitePieces.add(new King(4, 0, Color.WHITE, player));
+        whitePieces.add(new Queen(3, 0, Color.WHITE, player));
+        whitePieces.add(new Knight(1, 0, Color.WHITE, player));
+        whitePieces.add(new Knight(6, 0, Color.WHITE, player));
+        whitePieces.add(new Bishop(2, 0, Color.WHITE, player));
+        whitePieces.add(new Bishop(5, 0, Color.WHITE, player));
+        whitePieces.add(new Rook(0, 0, Color.WHITE, player));
+        whitePieces.add(new Rook(7, 0, Color.WHITE, player));
 
 
         whitePieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
@@ -93,25 +105,25 @@ public class Board {
     /**
      * Sets up Black's pieces.
      */
-    public void setUpBlackPieces() {
+    public void setUpBlackPieces(Human player) {
         // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 6) {
-                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.BLACK));
+                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.BLACK, player));
                 }
             }
         }
 
         // set up black pieces
-        blackPieces.add(new King(4, 7, Color.BLACK));
-        blackPieces.add(new Queen(3, 7, Color.BLACK));
-        blackPieces.add(new Knight(1, 7, Color.BLACK));
-        blackPieces.add(new Knight(6, 7, Color.BLACK));
-        blackPieces.add(new Bishop(2, 7, Color.BLACK));
-        blackPieces.add(new Bishop(5, 7, Color.BLACK));
-        blackPieces.add(new Rook(0, 7, Color.BLACK));
-        blackPieces.add(new Rook(7, 7, Color.BLACK));
+        blackPieces.add(new King(4, 7, Color.BLACK, player));
+        blackPieces.add(new Queen(3, 7, Color.BLACK, player));
+        blackPieces.add(new Knight(1, 7, Color.BLACK, player));
+        blackPieces.add(new Knight(6, 7, Color.BLACK, player));
+        blackPieces.add(new Bishop(2, 7, Color.BLACK, player));
+        blackPieces.add(new Bishop(5, 7, Color.BLACK, player));
+        blackPieces.add(new Rook(0, 7, Color.BLACK, player));
+        blackPieces.add(new Rook(7, 7, Color.BLACK, player));
 
 
         blackPieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
@@ -124,30 +136,13 @@ public class Board {
      * @param targetX int
      * @param targetY int
      */
-    public boolean movePiece(Piece piece, int targetX, int targetY) {
-        if (piece.getType() == Type.PAWN && pawnCanCapture((Pawn) piece, targetX, targetY)) {
-            if (piece.getColor() == Color.WHITE) {
-                removedBlackPieces.add(boardArray[targetY][targetX].getPiece());
-            } else {
-                removedWhitePieces.add(boardArray[targetY][targetX].getPiece());
-            }
-            executeMove(piece, targetX, targetY);
-            return true;
-        }
-
+    public void movePiece(Piece piece, int targetX, int targetY) {
         if (piece.isValidMove(targetX, targetY) && isValidPath(piece, targetX, targetY)) {
-            if (isCapture(piece, targetX, targetY)) {
-                if (piece.getColor() == Color.WHITE) {
-                    removedBlackPieces.add(boardArray[targetY][targetX].getPiece());
-                } else {
-                    removedWhitePieces.add(boardArray[targetY][targetX].getPiece());
-                }
-            }
-            executeMove(piece, targetX, targetY);
-            return true;
+            if (isCapture(piece, targetX, targetY)) capturePiece(piece, targetX, targetY);
+
+            setNewPiecePosition(piece, targetX, targetY);
         } else {
             System.out.println("Invalid Move!");
-            return false;
         }
     }
 
@@ -210,18 +205,32 @@ public class Board {
      * otherwise {@code false}
      */
     public boolean isValidTarget(Piece piece, int targetX, int targetY) {
-        // pawn logic is handled in pawnCanCapture movement
-        if (piece.getType() == Type.PAWN && boardArray[targetY][targetX].isOccupied()) return false;
         return (!boardArray[targetY][targetX].isOccupied()
                 || boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
     }
 
     public boolean isCapture(Piece piece, int targetX, int targetY) {
-        // pawn capture is handled separately in pawnCanCapture method
-        if (piece.getType() == Type.PAWN) return false;
-
         return (boardArray[targetY][targetX].isOccupied()
                 && boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
+    }
+
+    /**
+     * Captures piece.
+     *
+     * @param piece Piece object
+     * @param targetX int
+     * @param targetY int
+     */
+    public void capturePiece(Piece piece, int targetX, int targetY) {
+        switch (piece.getColor()) {
+            case WHITE:
+                removedBlackPieces.add(boardArray[targetY][targetX].getPiece());
+                break;
+
+            case BLACK:
+                removedWhitePieces.add(boardArray[targetY][targetX].getPiece());
+                break;
+        }
     }
 
     /**
@@ -231,7 +240,7 @@ public class Board {
      * @param targetX int
      * @param targetY int
      */
-    public void executeMove(Piece piece, int targetX, int targetY) {
+    public void setNewPiecePosition(Piece piece, int targetX, int targetY) {
         // original coordinates
         int currentX = piece.getX();
         int currentY = piece.getY();
@@ -248,30 +257,6 @@ public class Board {
         if (piece.getType() == Type.PAWN) ((Pawn) piece).setHasMoved(true);
         if (piece.getType() == Type.ROOK) ((Rook) piece).setHasMoved(true);
         if (piece.getType() == Type.KING) ((King) piece).setHasMoved(true);
-    }
-
-    /**
-     * Special method for handling pawn capturing logic.
-     *
-     * @param pawn    Pawn object
-     * @param targetX int
-     * @param targetY int
-     * @return
-     */
-    public boolean pawnCanCapture(Pawn pawn, int targetX, int targetY) {
-        if (pawn.getColor() == Color.WHITE) {
-            int col = Math.abs(targetX - pawn.getX());
-            int row = targetY - pawn.getY();
-
-            return ((col == 1) && (row == 1) && boardArray[targetY][targetX].isOccupied()
-                    && boardArray[targetY][targetX].getPiece().getColor() != Color.WHITE);
-        } else {
-            int col = Math.abs(targetX - pawn.getX());
-            int row = targetY - pawn.getY();
-
-            return ((col == 1) && (row == -1) && boardArray[targetY][targetX].isOccupied()
-                    && boardArray[targetY][targetX].getPiece().getColor() != Color.BLACK);
-        }
     }
 
     /**
