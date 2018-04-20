@@ -34,7 +34,7 @@ public class Game {
     private List<Move> moves = new LinkedList<>();
 
 
-    private void createGame() {
+    public void createGame() {
         // set up board
         board = new Board();
 
