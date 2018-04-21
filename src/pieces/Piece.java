@@ -90,4 +90,13 @@ public abstract class Piece {
      */
     public abstract List<int[]> generatePath(int targetX, int targetY);
 
+    /**
+     * Temporary parsing to FEN notation.
+     *
+     * @return String
+     */
+    public abstract String toFen();
+
+    // TODO: (replace with toString() later.
+
 }

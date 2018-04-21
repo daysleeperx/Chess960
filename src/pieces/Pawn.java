@@ -151,6 +151,16 @@ public class Pawn extends Piece {
         return path;
     }
 
+    /**
+     * Temporary parsing to FEN notation.
+     *
+     * @return String
+     */
+    @Override
+    public String toFen() {
+        return (color == Color.WHITE) ? "P" : "p";
+    }
+
     @Override
     public String toString() {
         if (color == Color.BLACK) return "\u265F";

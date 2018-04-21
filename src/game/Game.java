@@ -5,12 +5,15 @@ import move.Move;
 import pieces.Color;
 import pieces.Piece;
 import player.Human;
+import stockfish.StockFish;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import static utils.Parser.parseInput;
+import static utils.FenParser.parseToFen;
 
 /**
  * Represent Game.
@@ -27,7 +30,7 @@ public class Game {
     /**
      * Side to move.
      */
-    private int sideToMove;
+    private Color sideToMove;
     /**
      * List of moves.
      */
@@ -43,6 +46,7 @@ public class Game {
         players[1] = new Human(Color.BLACK, this);
 
         board.setUpPieces(players[0], players[1]);
+        sideToMove = Color.WHITE;
     }
 
     public Board getBoard() {
@@ -52,14 +56,15 @@ public class Game {
     /**
      * Main Game loop.
      */
-    public void game() {
+    public void game() throws IOException {
+        StockFish stockFish = new StockFish();
+        stockFish.startEngine(); // Start Stockfish
         createGame();
         while (true) { // Main Game loop
+            System.out.println(sideToMove.toString() + " to move");
             board.printGame();
             Scanner sc = new Scanner(System.in);
-            String in = sc.nextLine();
-            if (in.equals("quit")) break;
-            int[] move = parseInput(in);
+            int[] move = (sideToMove == Color.WHITE) ? parseInput(sc.nextLine()) : parseInput(stockFish.getBestMove(parseToFen(board.getBoardArray()), 5000));
             if (move.length == 0) {
                 System.out.println("Invalid input");
                 continue;
@@ -71,11 +76,13 @@ public class Game {
             Piece piece = board.boardArray[row][col].getPiece();
             if (piece != null) {
                 board.movePiece(piece, targetX, targetY);
+                // TODO: do not switch sides if invalid move
             }
+            sideToMove = (sideToMove == Color.WHITE) ? Color.BLACK : Color.WHITE;
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Game g = new Game();
         g.game();
     }

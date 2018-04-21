@@ -76,6 +76,16 @@ public class King extends Piece {
         return path;
     }
 
+    /**
+     * Temporary parsing to FEN notation.
+     *
+     * @return String
+     */
+    @Override
+    public String toFen() {
+        return (color == Color.WHITE) ? "K" : "k";
+    }
+
     @Override
     public String toString() {
         if (this.color == Color.BLACK) return "\u265A";
