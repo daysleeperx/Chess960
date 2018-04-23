@@ -58,10 +58,9 @@ public class StockFish {
             sendCommand("isready");
             while (true) {
                 String text = bufferedReader.readLine();
-                if (text.equals("readyok"))
-                    break;
-                else
-                    out.append(text).append("\n");
+                if (text.equals("readyok")) break;
+
+                out.append(text).append("\n");
             }
         } catch (InterruptedException e) {
             System.out.println("Error: " + e.getMessage());
@@ -75,7 +74,7 @@ public class StockFish {
     /**
      * Return best move from Stockfish.
      *
-     * @param fen String (Chess position using the FEN notation)
+     * @param fen  String (Chess position using the FEN notation)
      * @param wait int (millisecond indicating how long Stockfish should evaluate the position.
      * @return String (Algebraic notation)
      */
@@ -83,7 +82,7 @@ public class StockFish {
         sendCommand("position fen " + fen);
         sendCommand("go movetime " + wait);
 
-        return getOutput(wait + 20).split("bestmove ")[1].split(" ")[0];
+        return getOutput(wait + 1000).split("bestmove ")[1].split(" ")[0].replace("\n", "");
     }
 
     /**

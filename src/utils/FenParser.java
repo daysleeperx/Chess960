@@ -3,13 +3,9 @@ package utils;
 import board.Board;
 import game.Game;
 import pieces.Color;
-import pieces.Piece;
-import pieces.Type;
 import player.Human;
 import square.Square;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringJoiner;
 
 /**
@@ -39,12 +35,10 @@ public final class FenParser {
                 } else {
                     count++;
                 }
-
             }
             if (count != 0) currentRow.append(count);
             fenString.add(currentRow.toString());
         }
-        // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
         return fenString.add(" b").toString();
     }
 

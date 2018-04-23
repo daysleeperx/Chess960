@@ -12,8 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import static utils.Parser.parseInput;
 import static utils.FenParser.parseToFen;
+import static utils.Parser.parseInput;
 
 /**
  * Represent Game.
@@ -64,15 +64,18 @@ public class Game {
             System.out.println(sideToMove.toString() + " to move");
             board.printGame();
             Scanner sc = new Scanner(System.in);
-            int[] move = (sideToMove == Color.WHITE) ? parseInput(sc.nextLine()) : parseInput(stockFish.getBestMove(parseToFen(board.getBoardArray()), 5000));
-            if (move.length == 0) {
+            String move = (sideToMove == Color.WHITE) ? sc.nextLine()
+                    : stockFish.getBestMove(parseToFen(board.getBoardArray()), 5000);
+            System.out.println("Current move " + move);
+            int[] moveArray = parseInput(move);
+            if (moveArray.length == 0) {
                 System.out.println("Invalid input");
                 continue;
             }
-            int col = move[0];
-            int row = move[1];
-            int targetX = move[2];
-            int targetY = move[3];
+            int col = moveArray[0];
+            int row = moveArray[1];
+            int targetX = moveArray[2];
+            int targetY = moveArray[3];
             Piece piece = board.boardArray[row][col].getPiece();
             if (piece != null) {
                 board.movePiece(piece, targetX, targetY);
