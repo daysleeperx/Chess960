@@ -35,6 +35,10 @@ public class Game {
      * List of moves.
      */
     private List<Move> moves = new LinkedList<>();
+    /**
+     * List of possible castling moves.
+     */
+    private List<String> castlingMoves = List.of("e1g1", "e1c1", "e8c8", "e8g8");
 
 
     public void createGame() {
@@ -60,6 +64,7 @@ public class Game {
         StockFish stockFish = new StockFish();
         stockFish.startEngine(); // Start Stockfish
         createGame();
+
         while (true) { // Main Game loop
             System.out.println(sideToMove.toString() + " to move");
             board.printGame();
@@ -81,9 +86,9 @@ public class Game {
                 board.movePiece(piece, targetX, targetY);
                 // TODO: do not switch sides if invalid move
             }
-            sideToMove = (sideToMove == Color.WHITE) ? Color.BLACK : Color.WHITE;
-        }
+        sideToMove = (sideToMove == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
+}
 
     public static void main(String[] args) throws IOException {
         Game g = new Game();

@@ -1,6 +1,7 @@
 package pieces;
 
 
+import board.Board;
 import player.Human;
 
 import java.util.LinkedList;
@@ -56,13 +57,95 @@ public class King extends Piece {
 
     @Override
     public boolean isValidMove(int targetX, int targetY) {
+        return (canCastleKingSide(targetX, targetY) || canCastleQueenSide(targetX, targetY)
+                || canMove(targetX, targetY));
+    }
+
+    /**
+     * Checks if Kingside castling is possible.
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
+    public boolean canCastleKingSide(int targetX, int targetY) {
+        Board board = player.getGame().getBoard();
+
+        switch (color) {
+            case WHITE:
+                return (this.x == 4 && this.y == 0)
+                        && (targetX == 6 && targetY == 0)
+                        && (!this.hasMoved)
+                        && board.getSquare(7, 0).isOccupied()
+                        && board.getSquare(7, 0).getPiece().getType() == Type.ROOK
+                        && (!((Rook) board.getSquare(7, 0).getPiece()).isHasMoved())
+                        && (!board.getSquare(6, 0).isOccupied())
+                        && (!board.getSquare(5, 0).isOccupied());
+
+            case BLACK:
+                return (this.x == 4 && this.y == 7)
+                        && (targetX == 6 && targetY == 7)
+                        && (!this.hasMoved)
+                        && board.getSquare(7, 7).isOccupied()
+                        && board.getSquare(7, 7).getPiece().getType() == Type.ROOK
+                        && (!((Rook) board.getSquare(7, 7).getPiece()).isHasMoved())
+                        && (!board.getSquare(6, 7).isOccupied())
+                        && (!board.getSquare(5, 7).isOccupied());
+
+            default: return false;
+        }
+
+    }
+
+    /**
+     * Checks if Queenside castling is possible.
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
+    public boolean canCastleQueenSide(int targetX, int targetY) {
+        Board board = player.getGame().getBoard();
+
+        switch (color) {
+            case WHITE:
+                return (this.x == 4 && this.y == 0)
+                        && (targetX == 2 && targetY == 0)
+                        && (!this.hasMoved)
+                        && board.getSquare(0, 0).isOccupied()
+                        && board.getSquare(0, 0).getPiece().getType() == Type.ROOK
+                        && (!((Rook) board.getSquare(0, 0).getPiece()).isHasMoved())
+                        && (!board.getSquare(3, 0).isOccupied())
+                        && (!board.getSquare(2, 0).isOccupied())
+                        && (!board.getSquare(1, 0).isOccupied());
+
+            case BLACK:
+                return (this.x == 4 && this.y == 7)
+                        && (targetX == 2 && targetY == 7)
+                        && (!this.hasMoved)
+                        && board.getSquare(0, 7).isOccupied()
+                        && board.getSquare(0, 7).getPiece().getType() == Type.ROOK
+                        && (!((Rook) board.getSquare(0, 7).getPiece()).isHasMoved())
+                        && (!board.getSquare(3, 7).isOccupied())
+                        && (!board.getSquare(2, 7).isOccupied())
+                        && (!board.getSquare(1, 7).isOccupied());
+
+            default: return false;
+        }
+
+    }
+
+    /**
+     * Checks if King can move.
+     * @param targetX
+     * @param targetY
+     * @return
+     */
+    public boolean canMove(int targetX, int targetY) {
         int col = Math.abs(this.x - targetX);
         int row = Math.abs(this.y - targetY);
 
         return (col <= 1 && row <= 1);
-
-        //TODO: Castling move
-
     }
 
     @Override

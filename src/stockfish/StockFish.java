@@ -18,7 +18,7 @@ public class StockFish {
     private OutputStreamWriter outputStreamWriter;
 
     /**
-     * Absolute path to Stockifsh.
+     * Absolute path to Stockfish.
      */
     private static final String PATH = "/Users/viktorpavlov1/Stockfish/src/stockfish";
 
