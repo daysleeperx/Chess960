@@ -1,8 +1,11 @@
 package king;
 
+import board.Board;
+import game.Game;
 import org.junit.Before;
 import org.junit.Test;
 import pieces.King;
+import pieces.Queen;
 import pieces.Type;
 
 import java.util.ArrayList;
@@ -13,9 +16,12 @@ import static org.junit.Assert.*;
 
 public class KingTest {
     private King king;
+    private Game game;
 
     @Before
     public void setUp() {
+        game = new Game();
+        game.createGame();
         king = new King(4, 4, null);
     }
 
@@ -92,4 +98,37 @@ public class KingTest {
         assertEquals(1, king.generatePath(3, 5).size());
         IntStream.range(0, testPath.size()).forEach(i -> assertArrayEquals(testPath.get(i), king.generatePath(3, 5).get(i)));
     }
+
+    @Test
+    public void isHasMoved() {
+    }
+
+    @Test
+    public void setHasMoved() {
+    }
+
+    @Test
+    public void isInCheck() {
+        king = (King) game.getBoard().getSquare(4, 0).getPiece();
+        Board board = game.getBoard();
+        assertFalse(king.isInCheck());
+        board.setNewPiecePosition(board.getSquare(1, 7).getPiece(), 6, 1);
+        board.printGame();
+        assertTrue(king.isInCheck());
+    }
+
+    @Test
+    public void isValidMove() {
+    }
+
+    @Test
+    public void canCastleKingSide() {
+    }
+
+    @Test
+    public void canCastleQueenSide() {
+    }
+
+
+
 }

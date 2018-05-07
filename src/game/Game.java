@@ -20,6 +20,17 @@ import static utils.Parser.parseInput;
  */
 public class Game {
     /**
+     * Game status.
+     */
+    public enum GameStatus {
+        WHITE_WON,
+        BLACK_WON,
+        CHECK_MATE,
+        CHECK,
+        DRAW,
+        OPEN
+    }
+    /**
      * Board associated with the Game.
      */
     private Board board;
@@ -35,11 +46,11 @@ public class Game {
      * List of moves.
      */
     private List<Move> moves = new LinkedList<>();
-    /**
-     * List of possible castling moves.
-     */
-    private List<String> castlingMoves = List.of("e1g1", "e1c1", "e8c8", "e8g8");
 
+    /**
+     * Current game status.
+     */
+    public GameStatus currentGameStatus;
 
     public void createGame() {
         // set up board
@@ -51,10 +62,19 @@ public class Game {
 
         board.setUpPieces(players[0], players[1]);
         sideToMove = Color.WHITE;
+        setCurrentGameStatus(GameStatus.OPEN);
     }
 
     public Board getBoard() {
         return board;
+    }
+
+    public GameStatus getCurrentGameStatus() {
+        return currentGameStatus;
+    }
+
+    public void setCurrentGameStatus(GameStatus currentGameStatus) {
+        this.currentGameStatus = currentGameStatus;
     }
 
     /**
@@ -70,7 +90,7 @@ public class Game {
             board.printGame();
             Scanner sc = new Scanner(System.in);
             String move = (sideToMove == Color.WHITE) ? sc.nextLine()
-                    : stockFish.getBestMove(parseToFen(board.getBoardArray()), 5000);
+                    : stockFish.getBestMove(parseToFen(board), 5000);
             System.out.println("Current move " + move);
             int[] moveArray = parseInput(move);
             if (moveArray.length == 0) {
@@ -86,9 +106,9 @@ public class Game {
                 board.movePiece(piece, targetX, targetY);
                 // TODO: do not switch sides if invalid move
             }
-        sideToMove = (sideToMove == Color.WHITE) ? Color.BLACK : Color.WHITE;
+            sideToMove = (sideToMove == Color.WHITE) ? Color.BLACK : Color.WHITE;
+        }
     }
-}
 
     public static void main(String[] args) throws IOException {
         Game g = new Game();

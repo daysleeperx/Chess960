@@ -15,6 +15,7 @@ public class King extends Piece {
 
     private Type type;
     private boolean hasMoved;
+    private boolean kingInCheck = false;
 
 
     /**
@@ -53,6 +54,23 @@ public class King extends Piece {
 
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
+    }
+
+    /**
+     * Check if King is in check.
+     *
+     * @return {@code true}, otherwise {@code false}
+     */
+    public boolean isInCheck() {
+        Board board = player.getGame().getBoard();
+        List<Piece> enemyPieces = player.getGame().getBoard().getEnemyPieces(player);
+
+        // check if enemy pieces are attacking king
+        for (Piece piece: enemyPieces) {
+            if (piece.isValidMove(this.x, this.y) && board.isValidPath(piece, this.x, this.y)) return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -137,9 +155,10 @@ public class King extends Piece {
 
     /**
      * Checks if King can move.
-     * @param targetX
-     * @param targetY
-     * @return
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
      */
     public boolean canMove(int targetX, int targetY) {
         int col = Math.abs(this.x - targetX);

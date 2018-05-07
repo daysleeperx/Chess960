@@ -36,12 +36,17 @@ public class Human implements Player {
         return game;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     /**
      * Move method.
      */
 
     @Override
     public void move() {
+        //
 
     }
 }

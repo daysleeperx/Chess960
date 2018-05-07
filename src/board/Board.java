@@ -4,7 +4,14 @@ import pieces.*;
 import player.Human;
 import square.Square;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import static utils.FenParser.parseToFen;
 
 /**
  * Represent Board Class.
@@ -14,12 +21,14 @@ public class Board {
     /**
      * Board representation as an array of Square objects.
      */
+    public static final int WIDTH = 8;
+    public static final int HEIGHT = 8;
     public Square[][] boardArray;
     private List<Piece> whitePieces = new ArrayList<>();
     private List<Piece> blackPieces = new ArrayList<>();
     private List<Piece> removedWhitePieces = new LinkedList<>();
     private List<Piece> removedBlackPieces = new LinkedList<>();
-    private Map<String, Boolean> castlingRights = new HashMap<>();
+    private Map<String, Boolean> castlingRights = new LinkedHashMap<>();
 
     /**
      * Class constructor. Creates and empty board.
@@ -27,8 +36,8 @@ public class Board {
     public Board() {
         boardArray = new Square[8][8];
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
                 boardArray[i][j] = new Square(j, i);
             }
         }
@@ -51,6 +60,32 @@ public class Board {
     }
 
     public List<Piece> getWhitePieces() {
+        return whitePieces;
+    }
+
+    public Map<String, Boolean> getCastlingRights() {
+        return castlingRights;
+    }
+
+    /**
+     * Clear board. Helper method for testing.
+     */
+    public void clearBoard() {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                boardArray[i][j].setPiece(null);
+            }
+        }
+    }
+
+    /**
+     * Return enemy's pieces.
+     *
+     * @param player Player
+     * @return List
+     */
+    public List<Piece> getEnemyPieces(Human player) {
+        if (player.getColor() == Color.WHITE) return blackPieces;
         return whitePieces;
     }
 
@@ -87,7 +122,9 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 1) {
-                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.WHITE, player));
+                    Piece currentPawn = new Pawn(j, i, Color.WHITE, player);
+                    boardArray[i][j] = new Square(j, i, currentPawn);
+                    whitePieces.add(currentPawn);
                 }
             }
         }
@@ -114,7 +151,9 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 6) {
-                    boardArray[i][j] = new Square(j, i, new Pawn(j, i, Color.BLACK, player));
+                    Piece currentPawn = new Pawn(j, i, Color.BLACK, player);
+                    boardArray[i][j] = new Square(j, i, currentPawn);
+                    blackPieces.add(currentPawn);
                 }
             }
         }
@@ -149,6 +188,11 @@ public class Board {
             }
 
             setNewPiecePosition(piece, targetX, targetY);
+            // TODO: copy this to castle method?
+            // Casting done in order to set hasMoved to true
+            if (piece.getType() == Type.PAWN) ((Pawn) piece).setHasMoved(true);
+            if (piece.getType() == Type.ROOK) ((Rook) piece).setHasMoved(true);
+            if (piece.getType() == Type.KING) ((King) piece).setHasMoved(true);
         } else {
             System.out.println("Invalid Move!");
         }
@@ -269,45 +313,23 @@ public class Board {
         if (targetX == 6) {
             setNewPiecePosition(boardArray[king.y][4].getPiece(), 6, king.y);
             setNewPiecePosition(boardArray[king.y][7].getPiece(), 5, king.y);
-            return;
 
         }
         // queenside
         if (targetX == 2) {
-            setNewPiecePosition(boardArray[king.y][4].getPiece(), 6, king.y);
-            setNewPiecePosition(boardArray[king.y][7].getPiece(), 5, king.y);
-//
+            setNewPiecePosition(boardArray[king.y][4].getPiece(), 2, king.y);
+            setNewPiecePosition(boardArray[king.y][0].getPiece(), 3, king.y);
         }
 
-//        switch (move) {
-//            case "e1g1":
-//                setNewPiecePosition(boardArray[0][4].getPiece(), 6, 0);
-//                setNewPiecePosition(boardArray[0][7].getPiece(), 5, 0);
-//                castlingRights.put("K", false);
-//                castlingRights.put("Q", false);
-//                break;
-//
-//            case "e1c1":
-//                setNewPiecePosition(boardArray[0][4].getPiece(), 2, 0);
-//                setNewPiecePosition(boardArray[0][0].getPiece(), 3, 0);
-//                castlingRights.put("K", false);
-//                castlingRights.put("Q", false);
-//                break;
-//
-//            case "e8g8":
-//                setNewPiecePosition(boardArray[7][4].getPiece(), 6, 7);
-//                setNewPiecePosition(boardArray[7][7].getPiece(), 5, 7);
-//                castlingRights.put("k", false);
-//                castlingRights.put("q", false);
-//                break;
-//
-//            case "e8c8":
-//                setNewPiecePosition(boardArray[7][4].getPiece(), 2, 7);
-//                setNewPiecePosition(boardArray[7][0].getPiece(), 3, 7);
-//                castlingRights.put("k", false);
-//                castlingRights.put("q", false);
-//                break;
-//        }
+        // adjust castling rights
+        if (king.getColor() == Color.WHITE) {
+            castlingRights.put("K", false);
+            castlingRights.put("Q", false);
+        } else {
+            castlingRights.put("k", false);
+            castlingRights.put("q", false);
+        }
+
     }
 
     /**
@@ -322,6 +344,25 @@ public class Board {
         int currentX = piece.getX();
         int currentY = piece.getY();
 
+        // TODO: make a separate method?
+        // adjust castling rights if piece is rook or king
+        if (piece.getType() == Type.ROOK) {
+            if (currentX == 7 && currentY == 0) castlingRights.put("K", false);
+            if (currentX == 0 && currentY == 0) castlingRights.put("Q", false);
+            if (currentX == 7 && currentY == 7) castlingRights.put("k", false);
+            if (currentX == 0 && currentY == 7) castlingRights.put("q", false);
+        }
+
+        if (piece.getType() == Type.KING) {
+            if (piece.getColor() == Color.WHITE) {
+                castlingRights.put("K", false);
+                castlingRights.put("Q", false);
+            } else {
+                castlingRights.put("k", false);
+                castlingRights.put("q", false);
+            }
+        }
+
         // change the board array
         boardArray[targetY][targetX].setPiece(piece);
         boardArray[currentY][currentX].setPiece(null);
@@ -329,23 +370,21 @@ public class Board {
         // set new coordinates
         piece.setX(targetX);
         piece.setY(targetY);
-
-        // Casting done in order to set hasMoved to true
-        if (piece.getType() == Type.PAWN) ((Pawn) piece).setHasMoved(true);
-        if (piece.getType() == Type.ROOK) ((Rook) piece).setHasMoved(true);
-        if (piece.getType() == Type.KING) ((King) piece).setHasMoved(true);
     }
 
     /**
      * Prints game.
      */
     public void printGame() {
+        System.out.println("White pieces " + whitePieces);
+        System.out.println("Black pieces " + blackPieces);
         System.out.println("Removed pieces: \nWhite" + removedWhitePieces);
         System.out.println("Black" + removedBlackPieces);
         System.out.println(castlingRights);
         for (int row = boardArray.length - 1; row >= 0; row--) {
             System.out.println(Arrays.deepToString(boardArray[row]));
         }
+        System.out.println(parseToFen(this));
     }
 
     @Override
