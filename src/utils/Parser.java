@@ -1,5 +1,8 @@
 package utils;
 
+import pieces.Pawn;
+import pieces.Piece;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +12,7 @@ import java.util.Map;
 
 public final class Parser {
     private static Map<Character, Integer> sq = new HashMap<>();
+    private static Map<Integer, Character> algebraic = new HashMap<>();
 
     /**
      * Class constructor.
@@ -37,5 +41,36 @@ public final class Parser {
         out[2] = sq.get(inputArray[2]);
         out[3] = inputArray[3] - '0' - 1;
         return out;
+    }
+
+    /**
+     * Parse move to algebraic notation.
+     *
+     * @param piece Piece object
+     * @param targetX int
+     * @param targetY int
+     * @return String
+     */
+    public static String parseToAlgebraic(Piece piece, int targetX, int targetY) {
+        algebraic.put(0, 'a');
+        algebraic.put(1, 'b');
+        algebraic.put(2, 'c');
+        algebraic.put(3, 'd');
+        algebraic.put(4, 'e');
+        algebraic.put(5, 'f');
+        algebraic.put(6, 'g');
+        algebraic.put(7, 'h');
+
+        String out = String.valueOf(algebraic.get(piece.x)) +
+                (piece.y + 1) +
+                algebraic.get(targetX) +
+                (targetY + 1);
+
+        return out;
+    }
+
+    public static void main(String[] args) {
+        Piece pawn = new Pawn(4, 1, null);
+        System.out.println(parseToAlgebraic(pawn, 4, 3));
     }
 }

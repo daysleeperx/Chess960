@@ -9,6 +9,7 @@ import player.Human;
 import static org.junit.Assert.*;
 
 public class BoardTest {
+    private Game g;
     private Human player1;
     private Human player2;
     private Board board;
@@ -24,7 +25,8 @@ public class BoardTest {
     @Before
     public void setUp() {
         // set up board and pieces for testing
-        Game g = new Game();
+        g = new Game();
+        g.createGame();
         board = new Board();
         player1 = new Human(Color.WHITE, g);
         player2 = new Human(Color.BLACK, g);
@@ -242,6 +244,18 @@ public class BoardTest {
         board.setNewPiecePosition(testKnight, 2, 5);
         assertEquals(5, testKnight.getY());
         assertEquals(2, testKnight.getX());
+
+    }
+
+    @Test
+    public void getPossibleMoves() {
+        board = g.getBoard();
+        assertEquals(20, board.getPossibleMoves(Color.WHITE).size());
+        board.setNewPiecePosition(board.getSquare(1, 7).getPiece(), 6, 1);
+        board.printGame();
+        // should be 0 since checkmate
+        assertEquals(0, board.getPossibleMoves(Color.WHITE).size());
+
 
     }
 }

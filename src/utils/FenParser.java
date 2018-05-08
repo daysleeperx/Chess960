@@ -4,7 +4,6 @@ import board.Board;
 import game.Game;
 import pieces.Color;
 import player.Human;
-import square.Square;
 
 import java.util.Map;
 import java.util.StringJoiner;

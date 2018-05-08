@@ -19,6 +19,21 @@ public class Move {
      * Piece making the move.
      */
     private Piece piece;
+    /**
+     * Captured piece.
+     */
+    private Piece capturedPiece;
+
+    /**
+     *  Alternative class constructor.
+     *
+     * @param startSquare Square object
+     * @param targetSquare Square object
+     * @param piece Piece object
+     */
+    public Move(Square startSquare, Square targetSquare, Piece piece) {
+        this(startSquare, targetSquare, piece, null);
+    }
 
     /**
      * Class constructor.
@@ -27,9 +42,11 @@ public class Move {
      * @param targetSquare Square object
      * @param piece Piece object
      */
-    public Move(Square startSquare, Square targetSquare, Piece piece) {
+    public Move(Square startSquare, Square targetSquare, Piece piece, Piece capturedPiece) {
         this.startSquare = startSquare;
         this.targetSquare = targetSquare;
         this.piece = piece;
+        this.capturedPiece = capturedPiece;
     }
+
 }

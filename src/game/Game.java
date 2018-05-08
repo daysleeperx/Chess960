@@ -86,7 +86,12 @@ public class Game {
         createGame();
 
         while (true) { // Main Game loop
+            if (board.getPossibleMoves(sideToMove).size() == 0) {
+                System.out.println("GAME OVER");
+                break;
+            }
             System.out.println(sideToMove.toString() + " to move");
+            System.out.println(board.getPossibleMoves(sideToMove).size());
             board.printGame();
             Scanner sc = new Scanner(System.in);
             String move = (sideToMove == Color.WHITE) ? sc.nextLine()

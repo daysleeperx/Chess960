@@ -56,6 +56,13 @@ public class King extends Piece {
         this.hasMoved = hasMoved;
     }
 
+
+    @Override
+    public boolean isValidMove(int targetX, int targetY) {
+        return (canCastleKingSide(targetX, targetY) || canCastleQueenSide(targetX, targetY)
+                || canMove(targetX, targetY));
+    }
+
     /**
      * Check if King is in check.
      *
@@ -72,13 +79,6 @@ public class King extends Piece {
 
         return false;
     }
-
-    @Override
-    public boolean isValidMove(int targetX, int targetY) {
-        return (canCastleKingSide(targetX, targetY) || canCastleQueenSide(targetX, targetY)
-                || canMove(targetX, targetY));
-    }
-
     /**
      * Checks if Kingside castling is possible.
      *

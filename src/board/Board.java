@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static utils.FenParser.parseToFen;
+import static utils.Parser.parseToAlgebraic;
 
 /**
  * Represent Board Class.
@@ -29,6 +30,7 @@ public class Board {
     private List<Piece> removedWhitePieces = new LinkedList<>();
     private List<Piece> removedBlackPieces = new LinkedList<>();
     private Map<String, Boolean> castlingRights = new LinkedHashMap<>();
+    private King whiteKing, blackKing;
 
     /**
      * Class constructor. Creates and empty board.
@@ -130,7 +132,8 @@ public class Board {
         }
 
         // set up white pieces
-        whitePieces.add(new King(4, 0, Color.WHITE, player));
+        whiteKing = new King(4, 0, Color.WHITE, player);
+        whitePieces.add(whiteKing);
         whitePieces.add(new Queen(3, 0, Color.WHITE, player));
         whitePieces.add(new Knight(1, 0, Color.WHITE, player));
         whitePieces.add(new Knight(6, 0, Color.WHITE, player));
@@ -159,7 +162,8 @@ public class Board {
         }
 
         // set up black pieces
-        blackPieces.add(new King(4, 7, Color.BLACK, player));
+        blackKing = new King(4, 7, Color.BLACK, player);
+        blackPieces.add(blackKing);
         blackPieces.add(new Queen(3, 7, Color.BLACK, player));
         blackPieces.add(new Knight(1, 7, Color.BLACK, player));
         blackPieces.add(new Knight(6, 7, Color.BLACK, player));
@@ -170,6 +174,45 @@ public class Board {
 
 
         blackPieces.forEach(piece -> boardArray[piece.y][piece.x] = new Square(piece.x, piece.y, piece));
+    }
+
+    /**
+     * Get List of all possible moves for either black or white.
+     *
+     * @param color Color
+     * @return List
+     */
+    public List<String> getPossibleMoves(Color color) {
+        List<Piece> currentPieces = (color == Color.WHITE) ? getWhitePieces() : getBlackPieces();
+        King king = (color == Color.WHITE) ? whiteKing : blackKing;
+        List<String> moves = new ArrayList<>();
+
+        for (Piece piece : currentPieces) {
+            for (int row = 0; row < HEIGHT; row++) {
+                for (int col = 0; col < WIDTH; col++) {
+                    if (!boardArray[row][col].isOccupied()
+                            || boardArray[row][col].getPiece().getColor() != color) {
+                        if (piece.isValidMove(col, row) && isValidPath(piece, col, row)) {
+                            if (king.isInCheck()) {
+                                // TODO: set piece locations and temporary add/remove piece from corresponding lists
+                                // make pseudo-move
+                                Piece captured = (boardArray[row][col].isOccupied()) ? boardArray[row][col].getPiece() : null;
+                                boardArray[row][col].setPiece(piece);
+                                boardArray[row][col].setPiece(null);
+                                if (!king.isInCheck()) moves.add(parseToAlgebraic(piece, col, row));
+                                // undo move
+                                boardArray[row][col].setPiece(captured);
+                                boardArray[piece.y][piece.x].setPiece(piece);
+                            } else {
+                                moves.add(parseToAlgebraic(piece, col, row));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return moves;
     }
 
     /**
@@ -261,10 +304,28 @@ public class Board {
                 || boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
     }
 
+    /**
+     * Checks if move results in a capture.
+     *
+     * @param piece   Piece object
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
+
     public boolean isCapture(Piece piece, int targetX, int targetY) {
         return (boardArray[targetY][targetX].isOccupied()
                 && boardArray[targetY][targetX].getPiece().getColor() != piece.getColor());
     }
+
+    /**
+     * Checks if move results in castling.
+     *
+     * @param piece   Piece object
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
 
     public boolean isCastling(Piece piece, int targetX, int targetY) {
         if (piece.getType() == Type.KING && !((King) piece).isHasMoved()) {

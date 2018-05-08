@@ -5,7 +5,6 @@ import game.Game;
 import org.junit.Before;
 import org.junit.Test;
 import pieces.King;
-import pieces.Queen;
 import pieces.Type;
 
 import java.util.ArrayList;
@@ -111,10 +110,67 @@ public class KingTest {
     public void isInCheck() {
         king = (King) game.getBoard().getSquare(4, 0).getPiece();
         Board board = game.getBoard();
-        assertFalse(king.isInCheck());
+        assertFalse(king.isInCheck()); // should be false
+        //move knight to g2
+        //[♜,  , ♝, ♛, ♚, ♝, ♞, ♜]
+        //[♟, ♟, ♟, ♟, ♟, ♟, ♟, ♟]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[♙, ♙, ♙, ♙, ♙, ♙, ♞, ♙]
+        //[♖, ♘, ♗, ♕, ♔, ♗, ♘, ♖]
         board.setNewPiecePosition(board.getSquare(1, 7).getPiece(), 6, 1);
         board.printGame();
         assertTrue(king.isInCheck());
+        // put knight back
+        board.setNewPiecePosition(board.getSquare(6, 1).getPiece(), 1, 7);
+        // set up new position
+        //[♜, ♞, ♝, ♛, ♚,  , ♞, ♜]
+        //[♟, ♟, ♟, ♟, ♟, ♟, ♟, ♟]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ , ♝,  , ♙,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[♙, ♙, ♙,  , ♙, ♙,  , ♙]
+        //[♖, ♘, ♗, ♕, ♔, ♗, ♘, ♖]
+        board.setNewPiecePosition(board.getSquare(3, 1).getPiece(), 3, 3);
+        board.setNewPiecePosition(board.getSquare(5, 7).getPiece(), 1, 3);
+        board.printGame();
+        assertTrue(king.isInCheck());
+        // put queen in the way
+        board.setNewPiecePosition(board.getSquare(3, 0).getPiece(), 3, 1);
+        assertFalse(king.isInCheck()); // should be false
+
+        // check for black king
+        king = (King) game.getBoard().getSquare(4, 7).getPiece();
+        board.setNewPiecePosition(board.getSquare(1, 0).getPiece(), 2, 6);
+        // move knight
+        //[♜, ♞, ♝, ♛, ♚,  , ♞, ♜]
+        //[♟, ♟, ♘, ♟, ♟, ♟, ♟, ♟]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ , ♝,  , ♙,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[♙, ♙, ♙, ♕, ♙, ♙,  , ♙]
+        //[♖,  , ♗,  , ♔, ♗, ♘, ♖]
+        assertTrue(king.isInCheck());
+        // put the knight back
+        board.setNewPiecePosition(board.getSquare(2, 6).getPiece(), 1, 0);
+        // board.printGame();
+        // attack with the queen
+        //[♜, ♞, ♝, ♛, ♚,  , ♞, ♜]
+        //[♟, ♟,  , ♟, ♕, ♟, ♟, ♟]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[ , ♝,  , ♙,  ,  ,  ,  ]
+        //[ ,  ,  ,  ,  ,  ,  ,  ]
+        //[♙, ♙, ♙,  , ♙, ♙,  , ♙]
+        //[♖, ♘, ♗,  , ♔, ♗, ♘, ♖]
+        board.setNewPiecePosition(board.getSquare(3, 1).getPiece(), 4, 6);
+        assertTrue(king.isInCheck());
+        //board.printGame();
+
     }
 
     @Test
