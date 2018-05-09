@@ -12,5 +12,69 @@ r1b1k2r/pppp1ppp/5q2/1B2n3/1b2P3/P1N4N/1PP2PPP/R1B1K2R b KQkq
 Current move b4c3
 GAME OVER
 
+Current move d4d7
+BLACK to move
+[e8d7, d8d7, c8d7]
+White pieces [♙, ♙, ♙, ♙, ♙, ♙, ♙, ♔, ♘, ♘, ♗, ♗, ♖, ♖, ♕]
+Black pieces [♟, ♟, ♟, ♟, ♟, ♟, ♚, ♛, ♞, ♞, ♝, ♝, ♜, ♜]
+Removed pieces:
+White[♙]
+Black[♟, ♟]
+{K=true, Q=true, k=true, q=true}
+[♜,  , ♝, ♛, ♚, ♝, ♞, ♜]
+[♟, ♟, ♟, ♕,  , ♟, ♟, ♟]
+[ ,  , ♞,  ,  ,  ,  ,  ]
+[ ,  ,  ,  ,  ,  ,  ,  ]
+[ ,  ,  ,  , ♙,  ,  ,  ]
+[ ,  ,  ,  ,  ,  ,  ,  ]
+[♙, ♙, ♙,  ,  , ♙, ♙, ♙]
+[♖, ♘, ♗,  , ♔, ♗, ♘, ♖]
+
+
+Current move b4c2
+WHITE to move
+[e1d1, e1d2, e1e2]
+White pieces [♙, ♙, ♙, ♙, ♙, ♙, ♔, ♘, ♘, ♗, ♗, ♖, ♖]
+Black pieces [♟, ♟, ♟, ♟, ♟, ♟, ♚, ♛, ♞, ♞, ♝, ♝, ♜, ♜]
+Removed pieces:
+White[♙, ♕, ♙]
+Black[♟, ♟]
+{K=true, Q=true, k=true, q=true}
+[♜,  ,  , ♛, ♚, ♝, ♞, ♜]
+[♟, ♟, ♟, ♝,  , ♟, ♟, ♟]
+[ ,  ,  ,  ,  ,  ,  ,  ]
+[ ,  ,  ,  ,  ,  ,  ,  ]
+[ ,  ,  ,  , ♙,  ,  ,  ]
+[ ,  , ♘,  ,  , ♘,  ,  ]
+[♙, ♙, ♞,  ,  , ♙, ♙, ♙]
+[♖,  , ♗,  , ♔, ♗,  , ♖]
+
+[d1e1]
+White pieces [♙, ♙, ♙, ♙, ♙, ♔, ♘, ♗, ♖]
+Black pieces [♟, ♟, ♟, ♟, ♟, ♚, ♞, ♞, ♝, ♜, ♜, ♝, ♛, ♟]
+Removed pieces:
+White[♙, ♕, ♙, ♖, ♗, ♘, ♙]
+Black[♟, ♟]
+{K=false, Q=false, k=true, q=true}
+[♜,  ,  ,  , ♚, ♝, ♞, ♜]
+[♟, ♟,  ,  ,  , ♟, ♟, ♟]
+[ ,  ,  ,  ,  ,  ,  ,  ]
+[ , ♝,  ,  ,  ,  ,  ,  ]
+[ ,  ,  ,  , ♟,  ,  ,  ]
+[ ,  ,  ,  ,  , ♘,  ,  ]
+[♙, ♙, ♛, ♗, ♖, ♙, ♙, ♙]
+[♞,  ,  , ♔,  ,  ,  ,  ]
+
+{K=false, Q=false, k=true, q=true}
+[♜,  ,  ,  , ♚, ♝, ♞, ♜]
+[♟, ♟,  ,  ,  , ♟, ♟, ♟]
+[ ,  ,  ,  ,  ,  ,  ,  ]
+[ , ♝,  ,  ,  ,  ,  ,  ]
+[ ,  ,  ,  , ♟,  ,  ,  ]
+[ ,  ,  ,  ,  , ♘,  ,  ]
+[♙, ♙,  ,  , ♖, ♙, ♙, ♙]
+[♞,  , ♛,  , ♔,  ,  ,  ]
+r3kbnr/pp3ppp/8/1b6/4p3/5N2/PP2RPPP/n1q1K3 b -kq
+GAME OVER
 
 Process finished with exit code 130 (interrupted by signal 2: SIGINT)

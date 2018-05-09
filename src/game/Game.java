@@ -87,15 +87,16 @@ public class Game {
 
         while (true) { // Main Game loop
             if (board.getPossibleMoves(sideToMove).size() == 0) {
+                board.printGame();
                 System.out.println("GAME OVER");
                 break;
             }
             System.out.println(sideToMove.toString() + " to move");
-            System.out.println(board.getPossibleMoves(sideToMove).size());
+            System.out.println(board.getPossibleMoves(sideToMove));
             board.printGame();
             Scanner sc = new Scanner(System.in);
             String move = (sideToMove == Color.WHITE) ? sc.nextLine()
-                    : stockFish.getBestMove(parseToFen(board), 5000);
+                    : stockFish.getBestMove(parseToFen(board), 1000);
             System.out.println("Current move " + move);
             int[] moveArray = parseInput(move);
             if (moveArray.length == 0) {

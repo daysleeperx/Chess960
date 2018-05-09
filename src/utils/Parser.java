@@ -51,7 +51,7 @@ public final class Parser {
      * @param targetY int
      * @return String
      */
-    public static String parseToAlgebraic(Piece piece, int targetX, int targetY) {
+    public static String parseToAlgebraic(int x, int y, int targetX, int targetY) {
         algebraic.put(0, 'a');
         algebraic.put(1, 'b');
         algebraic.put(2, 'c');
@@ -61,8 +61,8 @@ public final class Parser {
         algebraic.put(6, 'g');
         algebraic.put(7, 'h');
 
-        String out = String.valueOf(algebraic.get(piece.x)) +
-                (piece.y + 1) +
+        String out = String.valueOf(algebraic.get(x)) +
+                (y + 1) +
                 algebraic.get(targetX) +
                 (targetY + 1);
 
@@ -71,6 +71,6 @@ public final class Parser {
 
     public static void main(String[] args) {
         Piece pawn = new Pawn(4, 1, null);
-        System.out.println(parseToAlgebraic(pawn, 4, 3));
+        System.out.println(parseToAlgebraic(4, 1, 4, 3));
     }
 }

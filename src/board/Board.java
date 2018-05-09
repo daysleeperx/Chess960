@@ -185,6 +185,7 @@ public class Board {
     public List<String> getPossibleMoves(Color color) {
         List<Piece> currentPieces = (color == Color.WHITE) ? getWhitePieces() : getBlackPieces();
         King king = (color == Color.WHITE) ? whiteKing : blackKing;
+        List<Piece> opponentPieces = (king.getColor() == Color.WHITE) ?  getBlackPieces() : getWhitePieces();
         List<String> moves = new ArrayList<>();
 
         for (Piece piece : currentPieces) {
@@ -194,17 +195,28 @@ public class Board {
                             || boardArray[row][col].getPiece().getColor() != color) {
                         if (piece.isValidMove(col, row) && isValidPath(piece, col, row)) {
                             if (king.isInCheck()) {
-                                // TODO: set piece locations and temporary add/remove piece from corresponding lists
                                 // make pseudo-move
+                                int currentX = piece.x;
+                                int currentY = piece.y;
                                 Piece captured = (boardArray[row][col].isOccupied()) ? boardArray[row][col].getPiece() : null;
+                                if (captured != null) {
+                                    opponentPieces.remove(captured);
+                                }
                                 boardArray[row][col].setPiece(piece);
-                                boardArray[row][col].setPiece(null);
-                                if (!king.isInCheck()) moves.add(parseToAlgebraic(piece, col, row));
+                                boardArray[currentY][currentX].setPiece(null);
+                                piece.setX(col);
+                                piece.setY(row);
+                                if (!king.isInCheck()) moves.add(parseToAlgebraic(currentX, currentY, col, row));
                                 // undo move
                                 boardArray[row][col].setPiece(captured);
-                                boardArray[piece.y][piece.x].setPiece(piece);
+                                if (captured != null) {
+                                    opponentPieces.add(captured);
+                                }
+                                boardArray[currentY][currentX].setPiece(piece);
+                                piece.setX(currentX);
+                                piece.setY(currentY);
                             } else {
-                                moves.add(parseToAlgebraic(piece, col, row));
+                                moves.add(parseToAlgebraic(piece.x, piece.y, col, row));
                             }
                         }
                     }
