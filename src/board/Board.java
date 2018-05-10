@@ -2,6 +2,7 @@ package board;
 
 import pieces.*;
 import player.Human;
+import player.Player;
 import square.Square;
 
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class Board {
      * @param player Player
      * @return List
      */
-    public List<Piece> getEnemyPieces(Human player) {
+    public List<Piece> getEnemyPieces(Player player) {
         if (player.getColor() == Color.WHITE) return blackPieces;
         return whitePieces;
     }
@@ -105,8 +106,10 @@ public class Board {
     /**
      * Set up pieces on the board. Starting position.
      * The 960 shuffle should take also place in this method.
+     * @param player1
+     * @param player2
      */
-    public void setUpPieces(Human player1, Human player2) {
+    public void setUpPieces(Player player1, Player player2) {
         setUpWhitePieces(player1);
         setUpBlackPieces(player2);
 
@@ -118,8 +121,9 @@ public class Board {
 
     /**
      * Sets up White's pieces.
+     * @param player
      */
-    public void setUpWhitePieces(Human player) {
+    public void setUpWhitePieces(Player player) {
         // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -148,8 +152,9 @@ public class Board {
 
     /**
      * Sets up Black's pieces.
+     * @param player
      */
-    public void setUpBlackPieces(Human player) {
+    public void setUpBlackPieces(Player player) {
         // set up pawns
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -194,30 +199,27 @@ public class Board {
                     if (!boardArray[row][col].isOccupied()
                             || boardArray[row][col].getPiece().getColor() != color) {
                         if (piece.isValidMove(col, row) && isValidPath(piece, col, row)) {
-                            if (king.isInCheck()) {
-                                // make pseudo-move
-                                int currentX = piece.x;
-                                int currentY = piece.y;
-                                Piece captured = (boardArray[row][col].isOccupied()) ? boardArray[row][col].getPiece() : null;
-                                if (captured != null) {
-                                    opponentPieces.remove(captured);
-                                }
-                                boardArray[row][col].setPiece(piece);
-                                boardArray[currentY][currentX].setPiece(null);
-                                piece.setX(col);
-                                piece.setY(row);
-                                if (!king.isInCheck()) moves.add(parseToAlgebraic(currentX, currentY, col, row));
-                                // undo move
-                                boardArray[row][col].setPiece(captured);
-                                if (captured != null) {
-                                    opponentPieces.add(captured);
-                                }
-                                boardArray[currentY][currentX].setPiece(piece);
-                                piece.setX(currentX);
-                                piece.setY(currentY);
-                            } else {
-                                moves.add(parseToAlgebraic(piece.x, piece.y, col, row));
+                            // make pseudo-move
+                            // TODO: create a separate method for this?
+                            int currentX = piece.x;
+                            int currentY = piece.y;
+                            Piece captured = (boardArray[row][col].isOccupied()) ? boardArray[row][col].getPiece() : null;
+                            if (captured != null) {
+                                opponentPieces.remove(captured);
                             }
+                            boardArray[row][col].setPiece(piece);
+                            boardArray[currentY][currentX].setPiece(null);
+                            piece.setX(col);
+                            piece.setY(row);
+                            if (!king.isInCheck()) moves.add(parseToAlgebraic(currentX, currentY, col, row));
+                            // undo move
+                            boardArray[row][col].setPiece(captured);
+                            if (captured != null) {
+                                opponentPieces.add(captured);
+                            }
+                            boardArray[currentY][currentX].setPiece(piece);
+                            piece.setX(currentX);
+                            piece.setY(currentY);
                         }
                     }
                 }
@@ -378,8 +380,6 @@ public class Board {
 
     /**
      * Handles the castling move.
-     *
-     * @param move String
      */
     public void castle(King king, int targetX, int targetY) {
         // kingside
@@ -457,7 +457,7 @@ public class Board {
         for (int row = boardArray.length - 1; row >= 0; row--) {
             System.out.println(Arrays.deepToString(boardArray[row]));
         }
-        System.out.println(parseToFen(this));
+        System.out.println(parseToFen(this, Color.BLACK));
     }
 
     @Override

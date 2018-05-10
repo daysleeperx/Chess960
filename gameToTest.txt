@@ -77,4 +77,23 @@ Black[♟, ♟]
 r3kbnr/pp3ppp/8/1b6/4p3/5N2/PP2RPPP/n1q1K3 b -kq
 GAME OVER
 
+// TODO: why d7b6 is possible?!
+BLACK to move
+[a7a5, a7a6, b7b5, b7b6, b7c6, f7f5, f7f6, g7g5, g7g6, h7h5, h7h6, e8e7, e8f8, e8g8, d8h4, d8a5, d8g5, d8b6, d8f6, d8c7, d8e7, b8a6, b8c6, d7e5, d7b6, d7f6, d7f8, c5f2, c5a3, c5e3, c5b4, c5d4, c5b6, c5d6, c5e7, c5f8, h8f8, h8g8]
+White pieces [♙, ♙, ♙, ♙, ♙, ♙, ♔, ♘, ♘, ♗, ♗, ♖, ♖, ♙]
+Black pieces [♟, ♟, ♟, ♟, ♟, ♚, ♛, ♞, ♞, ♝, ♝, ♜, ♜]
+Removed pieces:
+White[♙, ♕]
+Black[♟, ♟, ♟]
+{K=true, Q=true, k=true, q=true}
+[♜, ♞, ♝, ♛, ♚,  ,  , ♜]
+[♟, ♟,  , ♞,  , ♟, ♟, ♟]
+[ ,  , ♗,  ,  ,  ,  ,  ]
+[ ,  , ♝,  ,  ,  ,  ,  ]
+[ ,  ,  ,  , ♙,  ,  ,  ]
+[ ,  , ♘,  ,  ,  ,  ,  ]
+[♙, ♙, ♙,  ,  , ♙, ♙, ♙]
+[♖,  , ♗,  , ♔,  , ♘, ♖]
+
+
 Process finished with exit code 130 (interrupted by signal 2: SIGINT)

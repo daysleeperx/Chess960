@@ -1,7 +1,7 @@
 package pieces;
 
 
-import player.Human;
+import player.Player;
 import square.Square;
 
 import java.util.LinkedList;
@@ -29,13 +29,12 @@ public class Pawn extends Piece {
 
     /**
      * Alternative constructor with Player object included.
-     *
-     * @param x      int X coordinate
+     *  @param x      int X coordinate
      * @param y      int Y coordinate
      * @param color  Color enum
      * @param player Player object
      */
-    public Pawn(int x, int y, Color color, Human player) {
+    public Pawn(int x, int y, Color color, Player player) {
         super(x, y, color, player);
         this.type = Type.PAWN;
     }

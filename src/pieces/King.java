@@ -2,7 +2,7 @@ package pieces;
 
 
 import board.Board;
-import player.Human;
+import player.Player;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class King extends Piece {
 
     private Type type;
     private boolean hasMoved;
-    private boolean kingInCheck = false;
+
 
 
     /**
@@ -32,13 +32,12 @@ public class King extends Piece {
 
     /**
      * Alternative constructor with Player object included.
-     *
-     * @param x      int X coordinate
+     *  @param x      int X coordinate
      * @param y      int Y coordinate
      * @param color  Color enum
      * @param player Player object
      */
-    public King(int x, int y, Color color, Human player) {
+    public King(int x, int y, Color color, Player player) {
         super(x, y, color, player);
         this.type = Type.KING;
     }
@@ -94,6 +93,7 @@ public class King extends Piece {
                 return (this.x == 4 && this.y == 0)
                         && (targetX == 6 && targetY == 0)
                         && (!this.hasMoved)
+                        && (!this.isInCheck())
                         && board.getSquare(7, 0).isOccupied()
                         && board.getSquare(7, 0).getPiece().getType() == Type.ROOK
                         && (!((Rook) board.getSquare(7, 0).getPiece()).isHasMoved())
@@ -104,6 +104,7 @@ public class King extends Piece {
                 return (this.x == 4 && this.y == 7)
                         && (targetX == 6 && targetY == 7)
                         && (!this.hasMoved)
+                        && (!this.isInCheck())
                         && board.getSquare(7, 7).isOccupied()
                         && board.getSquare(7, 7).getPiece().getType() == Type.ROOK
                         && (!((Rook) board.getSquare(7, 7).getPiece()).isHasMoved())
@@ -130,6 +131,7 @@ public class King extends Piece {
                 return (this.x == 4 && this.y == 0)
                         && (targetX == 2 && targetY == 0)
                         && (!this.hasMoved)
+                        && (!this.isInCheck())
                         && board.getSquare(0, 0).isOccupied()
                         && board.getSquare(0, 0).getPiece().getType() == Type.ROOK
                         && (!((Rook) board.getSquare(0, 0).getPiece()).isHasMoved())
@@ -141,6 +143,7 @@ public class King extends Piece {
                 return (this.x == 4 && this.y == 7)
                         && (targetX == 2 && targetY == 7)
                         && (!this.hasMoved)
+                        && (!this.isInCheck())
                         && board.getSquare(0, 7).isOccupied()
                         && board.getSquare(0, 7).getPiece().getType() == Type.ROOK
                         && (!((Rook) board.getSquare(0, 7).getPiece()).isHasMoved())

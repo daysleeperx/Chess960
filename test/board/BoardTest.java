@@ -248,7 +248,7 @@ public class BoardTest {
     }
 
     @Test
-    public void getPossibleMoves() {
+    public void getPossibleMovesBasic() {
         board = g.getBoard();
         assertEquals(20, board.getPossibleMoves(Color.WHITE).size());
         board.setNewPiecePosition(board.getSquare(1, 7).getPiece(), 6, 1);

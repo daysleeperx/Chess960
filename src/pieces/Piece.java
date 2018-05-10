@@ -1,6 +1,7 @@
 package pieces;
 
 import player.Human;
+import player.Player;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public abstract class Piece {
     /**
      * Player.
      */
-    Human player;
+    Player player;
 
     /**
      * Class constructor.
@@ -43,7 +44,7 @@ public abstract class Piece {
      * @param color Color enum
      * @param player Player object
      */
-    public Piece(int x, int y, Color color, Human player) {
+    public Piece(int x, int y, Color color, Player player) {
         this.x = x;
         this.y = y;
         this.color = color;

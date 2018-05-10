@@ -1,16 +1,33 @@
 package stockfish;
 
+import board.Board;
+import game.Game;
+import pieces.Color;
+import player.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
+import static utils.FenParser.parseToFen;
+
 /**
  * Establishes a connection with Stockfish Chess engine.
  * All communication is done via standard input and output with text commands.
  */
-public class StockFish {
+public class StockFish extends Player {
+    /**
+     * Class constructor.
+     *
+     * @param color Color
+     * @param game Game object
+     */
+    public StockFish(Color color, Game game) {
+        this.color = color;
+        this.game = game;
+    }
     /**
      * Reader and write of input and output.
      */
@@ -97,16 +114,28 @@ public class StockFish {
             System.out.println("Error :" + e.getMessage());
         }
     }
+//
+//    public static void main(String[] args) throws IOException {
+//        StockFish stockFish = new StockFish();
+//        stockFish.startEngine();
+//
+//        Scanner sc = new Scanner(System.in);
+//
+//        while (true) {
+//            String command = sc.nextLine();
+//            System.out.println(stockFish.getBestMove(command, 2000));
+//        }
+//    }
 
-    public static void main(String[] args) throws IOException {
-        StockFish stockFish = new StockFish();
-        stockFish.startEngine();
+    /**
+     * Move method.
+     *
+     * @param board Board object
+     * @param sideToMove Color
+     */
+    @Override
+    public String move(Board board, Color sideToMove) {
+        return getBestMove(parseToFen(board, sideToMove), 1000);
 
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            String command = sc.nextLine();
-            System.out.println(stockFish.getBestMove(command, 2000));
-        }
     }
 }
