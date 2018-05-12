@@ -1,6 +1,9 @@
 package pieces;
 
 
+import player.Human;
+import player.Player;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +18,21 @@ public class Rook extends Piece {
 
     /**
      * Class constructor.
-     *
-     * @param x     X coordinate
+     *  @param x     X coordinate
      * @param y     Y coordinate
      * @param color Color object.
+     * @param player
+     */
+    public Rook(int x, int y, Color color, Player player) {
+        super(x, y, color);
+        this.type = Type.ROOK;
+    }
+
+    /**
+     * Alternative constructor with Player object included.
+     *  @param x      int X coordinate
+     * @param y      int Y coordinate
+     * @param color  Color enum
      */
     public Rook(int x, int y, Color color) {
         super(x, y, color);
@@ -27,6 +41,10 @@ public class Rook extends Piece {
 
     public boolean isHasMoved() {
         return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     @Override
@@ -65,6 +83,16 @@ public class Rook extends Piece {
         }
 
         return path;
+    }
+
+    /**
+     * Temporary parsing to FEN notation.
+     *
+     * @return String
+     */
+    @Override
+    public String toFen() {
+        return (color == Color.WHITE) ? "R" : "r";
     }
 
     @Override

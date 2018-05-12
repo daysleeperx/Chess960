@@ -1,6 +1,8 @@
 package pieces;
 
 
+import player.Player;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +23,18 @@ public class Knight extends Piece {
      */
     public Knight(int x, int y, Color color) {
         super(x, y, color);
+        this.type = Type.KNIGHT;
+    }
+
+    /**
+     * Alternative constructor with Player object included.
+     *  @param x      int X coordinate
+     * @param y      int Y coordinate
+     * @param color  Color enum
+     * @param player Player object
+     */
+    public Knight(int x, int y, Color color, Player player) {
+        super(x, y, color, player);
         this.type = Type.KNIGHT;
     }
 
@@ -47,6 +61,16 @@ public class Knight extends Piece {
         path.add(currentPos);
 
         return path;
+    }
+
+    /**
+     * Temporary parsing to FEN notation.
+     *
+     * @return String
+     */
+    @Override
+    public String toFen() {
+        return (color == Color.WHITE) ? "N" : "n";
     }
 
     @Override

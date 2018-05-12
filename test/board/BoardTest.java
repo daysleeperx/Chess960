@@ -1,12 +1,17 @@
 package board;
 
+import game.Game;
 import org.junit.Before;
 import org.junit.Test;
 import pieces.*;
+import player.Human;
 
 import static org.junit.Assert.*;
 
 public class BoardTest {
+    private Game g;
+    private Human player1;
+    private Human player2;
     private Board board;
     private Bishop bishop;
     private Queen queen;
@@ -20,7 +25,11 @@ public class BoardTest {
     @Before
     public void setUp() {
         // set up board and pieces for testing
+        g = new Game();
+        g.createGame();
         board = new Board();
+        player1 = new Human(Color.WHITE, g);
+        player2 = new Human(Color.BLACK, g);
         bishop = new Bishop(0, 0, Color.WHITE);
         queen = new Queen(0, 0, Color.BLACK);
         rook = new Rook(0, 0, Color.WHITE);
@@ -138,8 +147,7 @@ public class BoardTest {
     @Test
     public void isValidPathLeapingStartPosition() {
         // start position rook tries to move from a1 to a8
-        board.setUpPieces();
-        board.printGame();
+        board.setUpPieces(player1, player2);
         assertFalse(board.isValidPath(board.boardArray[0][0].getPiece(), 0, 7));
         // black queen tries to move from d8 to d1
         assertFalse(board.isValidPath(board.boardArray[7][3].getPiece(), 0, 3));
@@ -175,7 +183,7 @@ public class BoardTest {
         //[ ,  ,  ,  ,  ,  ,  ,  ]
         //[ ,  ,  ,  , ♛,  ,  ,  ]
 
-        board.setUpBlackPieces();
+        board.setUpBlackPieces(player2);
         queen.setX(4);
         queen.setY(0);
         board.boardArray[0][4].setPiece(queen);
@@ -210,7 +218,7 @@ public class BoardTest {
         //[ ,  ,  ,  ,  ,  ,  ,  ]
         //[ ,  ,  ,  , ♛,  ,  ,  ]
 
-        board.setUpBlackPieces();
+        board.setUpBlackPieces(player2);
         Queen whiteQueen = new Queen(4, 0, Color.WHITE);
         board.boardArray[0][4].setPiece(whiteQueen);
         assertTrue(board.isValidPath(whiteQueen, 4, 6));
@@ -221,11 +229,11 @@ public class BoardTest {
     @Test
     public void executeMove() {
         // check if pawn coordinates change
-        board.setUpPieces();
+        board.setUpPieces(player1, player2);
         Piece testPawn = board.boardArray[1][4].getPiece();
         assertEquals(1, testPawn.getY());
         assertEquals(4, testPawn.getX());
-        board.executeMove(testPawn, 4, 3);
+        board.setNewPiecePosition(testPawn, 4, 3);
         assertEquals(3, testPawn.getY());
         assertEquals(4, testPawn.getX());
 
@@ -233,9 +241,21 @@ public class BoardTest {
         Piece testKnight = board.boardArray[7][1].getPiece();
         assertEquals(7, testKnight.getY());
         assertEquals(1, testKnight.getX());
-        board.executeMove(testKnight, 2, 5);
+        board.setNewPiecePosition(testKnight, 2, 5);
         assertEquals(5, testKnight.getY());
         assertEquals(2, testKnight.getX());
+
+    }
+
+    @Test
+    public void getPossibleMovesBasic() {
+        board = g.getBoard();
+        assertEquals(20, board.getPossibleMoves(Color.WHITE).size());
+        board.setNewPiecePosition(board.getSquare(1, 7).getPiece(), 6, 1);
+        board.printGame();
+        // should be 0 since checkmate
+        assertEquals(0, board.getPossibleMoves(Color.WHITE).size());
+
 
     }
 }

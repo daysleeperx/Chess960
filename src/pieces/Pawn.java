@@ -1,6 +1,9 @@
 package pieces;
 
 
+import player.Player;
+import square.Square;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,12 +18,24 @@ public class Pawn extends Piece {
     /**
      * Class constructor.
      *
-     * @param x     X coordinate
-     * @param y     Y coordinate
-     * @param color Color object.
+     * @param x     int X coordinate
+     * @param y     int Y coordinate
+     * @param color Color enum
      */
     public Pawn(int x, int y, Color color) {
         super(x, y, color);
+        this.type = Type.PAWN;
+    }
+
+    /**
+     * Alternative constructor with Player object included.
+     *  @param x      int X coordinate
+     * @param y      int Y coordinate
+     * @param color  Color enum
+     * @param player Player object
+     */
+    public Pawn(int x, int y, Color color, Player player) {
+        super(x, y, color, player);
         this.type = Type.PAWN;
     }
 
@@ -39,25 +54,82 @@ public class Pawn extends Piece {
 
     @Override
     public boolean isValidMove(int targetX, int targetY) {
+        return (canCapture(targetX, targetY) || canMoveTwo(targetX, targetY) || canMoveForward(targetX, targetY));
+    }
+
+    /**
+     * Checks if pawn can move two squares forward.
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
+    public boolean canMoveTwo(int targetX, int targetY) {
         int col = targetX - this.x;
         int row = targetY - this.y;
 
         switch (color) {
             case WHITE:
                 if (!isHasMoved())
-                    return (col == 0) && (row == 2 || row == 1);
-
-                return (col == 0) && (row == 1);
+                    return (col == 0) && (row == 2 || row == 1)
+                            && !player.getGame().getBoard().getSquare(targetX, targetY).isOccupied();
             case BLACK:
                 if (!isHasMoved())
-                    return (col == 0) && (row == -2 || row == -1);
+                    return (col == 0) && (row == -2 || row == -1)
+                            && !player.getGame().getBoard().getSquare(targetX, targetY).isOccupied();
+            default:
+                return false;
+        }
+    }
 
-                return (col == 0) && (row == -1);
+    /**
+     * Checks if pawn can move forward.
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
+    public boolean canMoveForward(int targetX, int targetY) {
+        int col = targetX - this.x;
+        int row = targetY - this.y;
+
+        switch (color) {
+            case WHITE:
+                return (col == 0) && (row == 1)
+                        && !player.getGame().getBoard().getSquare(targetX, targetY).isOccupied();
+            case BLACK:
+                return (col == 0) && (row == -1)
+                        && !player.getGame().getBoard().getSquare(targetX, targetY).isOccupied();
 
             default:
                 return false;
         }
-        // TODO: capture moves
+    }
+
+    /**
+     * Checks if pawn can capture. The enemy piece mus be located on a diagonal square.
+     *
+     * @param targetX int
+     * @param targetY int
+     * @return {@code true}, otherwise {@code false}
+     */
+    public boolean canCapture(int targetX, int targetY) {
+        int col = Math.abs(targetX - this.x);
+        int row = targetY - this.y;
+
+        Square targetSquare = player.getGame().getBoard().getSquare(targetX, targetY);
+
+        switch (color) {
+            case WHITE:
+                return ((col == 1) && (row == 1) && targetSquare.isOccupied()
+                        && targetSquare.getPiece().getColor() == Color.BLACK);
+            case BLACK:
+                return ((col == 1) && (row == -1) && targetSquare.isOccupied()
+                        && targetSquare.getPiece().getColor() == Color.WHITE);
+
+            default:
+                return false;
+        }
     }
 
     @Override
@@ -76,6 +148,16 @@ public class Pawn extends Piece {
         }
 
         return path;
+    }
+
+    /**
+     * Temporary parsing to FEN notation.
+     *
+     * @return String
+     */
+    @Override
+    public String toFen() {
+        return (color == Color.WHITE) ? "P" : "p";
     }
 
     @Override

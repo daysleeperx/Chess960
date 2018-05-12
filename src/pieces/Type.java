@@ -4,10 +4,10 @@ package pieces;
  * Represent Type.
  */
 public enum Type {
-    KING,
-    QUEEN,
-    ROOK,
+    PAWN,
     KNIGHT,
     BISHOP,
-    PAWN
+    ROOK,
+    QUEEN,
+    KING,
 }
