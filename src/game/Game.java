@@ -4,7 +4,6 @@ import board.Board;
 import move.Move;
 import pieces.Color;
 import pieces.Piece;
-import player.Human;
 import player.Player;
 import stockfish.StockFish;
 
@@ -63,7 +62,7 @@ public class Game {
         board = new Board();
 
         // set up players
-        players.put(Color.WHITE, new Human(Color.WHITE, this));
+        players.put(Color.WHITE, new StockFish(Color.WHITE, this));
         players.put(Color.BLACK, new StockFish(Color.BLACK, this));
 
         board.setUpPieces(players.get(Color.WHITE), players.get(Color.BLACK));
@@ -119,17 +118,17 @@ public class Game {
     }
 
     /**
-     * Main Game loop.
+     * gui.Main Game loop.
      */
     public void game() throws IOException {
 //        StockFish stockFish = new StockFish();
 //        stockFish.startEngine(); // Start Stockfish
         createGame();
         ((StockFish) players.get(Color.BLACK)).startEngine();
-        //((StockFish) players.get(Color.WHITE)).startEngine();
+        ((StockFish) players.get(Color.WHITE)).startEngine();
 
 
-        while (true) {// Main Game loop
+        while (true) {// gui.Main Game loop
             Player currentPlayer = players.get(sideToMove);
             // check for win
             if (isGameOver(sideToMove)) {

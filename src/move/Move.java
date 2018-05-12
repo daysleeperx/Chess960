@@ -1,52 +1,35 @@
 package move;
 
-import pieces.Piece;
-import square.Square;
+
+import gui.MoveType;
+import gui.Piece;
 
 /**
- * Represent move class.
+ * Represent move class used in Gui.
  */
 public class Move {
-    /**
-     * Start Square.
-     */
-    private Square startSquare;
-    /**
-     * Destination Square.
-     */
-    private Square targetSquare;
     /**
      * Piece making the move.
      */
     private Piece piece;
     /**
-     * Captured piece.
+     * Type of move.
      */
-    private Piece capturedPiece;
+    private MoveType moveType;
 
-    /**
-     *  Alternative class constructor.
-     *
-     * @param startSquare Square object
-     * @param targetSquare Square object
-     * @param piece Piece object
-     */
-    public Move(Square startSquare, Square targetSquare, Piece piece) {
-        this(startSquare, targetSquare, piece, null);
+    public Move(MoveType moveType) {
+        this.moveType = moveType;
     }
 
-    /**
-     * Class constructor.
-     *
-     * @param startSquare Square object
-     * @param targetSquare Square object
-     * @param piece Piece object
-     */
-    public Move(Square startSquare, Square targetSquare, Piece piece, Piece capturedPiece) {
-        this.startSquare = startSquare;
-        this.targetSquare = targetSquare;
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
         this.piece = piece;
-        this.capturedPiece = capturedPiece;
     }
 
+    public MoveType getMoveType() {
+        return moveType;
+    }
 }
