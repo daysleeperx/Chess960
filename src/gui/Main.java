@@ -24,6 +24,9 @@ import static utils.FenParser.parseToFen;
 import static utils.Parser.*;
 
 public class Main extends Application {
+    /**
+     * Primary stage.
+     */
     private Stage primaryStage;
     /**
      * Dimension of board and squares.
@@ -142,41 +145,26 @@ public class Main extends Application {
         // Game loop
         new AnimationTimer() {
 
-            long time = 0;
-
-            /*
+            /**
              * This method needs to be overridden by extending classes. It is going to
              * be called in every frame while the {@code AnimationTimer} is active.
              *
              * @param now The timestamp of the current frame given in nanoseconds. This
              *            value will be the same for all {@code AnimationTimers} called
              *            during one frame.
-             */
+             **/
             @Override
             public void handle(long now) {
-                //System.out.println(sideToMove + " " + System.currentTimeMillis());
                 // show dialog if game is over
                 if (game.isGameOver(sideToMove)) {
                     Label label = new Label();
                     label.setText("Checkmate!");
-                    label.setStyle("-fx-text-fill: #0053f9; -fx-font-family: RodchenkoCTT; -fx-font-size: 50pt");
+                    label.setStyle("-fx-text-fill: #0053f9; -fx-font-family: Futura; -fx-font-size: 50pt");
                     label.setTranslateX(WIDTH * SQUARE_SIZE / 2 - 100);
                     label.setTranslateY(WIDTH * SQUARE_SIZE / 2);
                     pieceGroup.getChildren().add(label);
                     stop();
                 }
-
-//                scene.setOnMousePressed(event -> {
-//                    int currentX = (int) ((event.getSceneX() - event.getSceneX() % SQUARE_SIZE) / SQUARE_SIZE);
-//                    int currentY = (int) ((event.getSceneY() - event.getSceneY() % SQUARE_SIZE) / SQUARE_SIZE);
-//
-//                    Square currentSquare = board[currentY][currentX];
-//                    Piece currentPiece = currentSquare.getPiece();
-//
-//                    if (currentPiece != null) {
-//
-//                    }
-//                });
 
                 if (sideToMove == Color.BLACK) {
                     String moveString0 = stockFish.getBestMove(parseToFen(logicBoard, sideToMove), 10);
@@ -187,68 +175,8 @@ public class Main extends Application {
                     int targetX = moveArr[2];
                     int targetY = moveArr[3];
 
-                    Move move = tryMove(currentPiece, targetX, targetY);
-
-
-                    int currX = toBoard(currentPiece.getOldX());
-                    int currY = toBoard(currentPiece.getOldY());
-
-                    switch (move.getMoveType()) {
-                        case CAPTURE:
-                            currentPiece.move(targetX, targetY);
-                            board[currY][currX].setPiece(null);
-                            Piece capturedPiece = board[targetY][targetX].getPiece();
-                            board[targetY][targetX].setPiece(null);
-                            pieceGroup.getChildren().remove(capturedPiece);
-                            board[targetY][targetX].setPiece(currentPiece);
-                            makeLogicMove(currX, currY, targetX, targetY);
-                            break;
-                        case MOVE:
-                            currentPiece.move(targetX, targetY);
-                            board[currY][currX].setPiece(null);
-                            board[targetY][targetX].setPiece(currentPiece);
-                            makeLogicMove(currX, currY, targetX, targetY);
-                            break;
-                        case CASTLE:
-                            String moveString = parseToAlgebraicGui(currX, currY, targetX, targetY);
-                            currentPiece.move(targetX, targetY);
-                            board[targetY][targetX].setPiece(currentPiece);
-                            board[currY][currX].setPiece(null);
-                            makeLogicMove(currX, currY, targetX, targetY);
-                            switch (moveString) {
-                                case "e1g1":
-                                    Piece rook = board[7][7].getPiece();
-                                    rook.move(5, 7);
-                                    board[7][7].setPiece(null);
-                                    board[7][5].setPiece(rook);
-                                    break;
-                                case "e1c1":
-                                    Piece rook1 = board[7][0].getPiece();
-                                    rook1.move(3, 7);
-                                    board[7][0].setPiece(null);
-                                    board[7][3].setPiece(rook1);
-                                    break;
-                                case "e8g8":
-                                    Piece rook2 = board[0][7].getPiece();
-                                    rook2.move(5, 0);
-                                    board[0][7].setPiece(null);
-                                    board[0][5].setPiece(rook2);
-                                    break;
-                                case "e8c8":
-                                    Piece rook3 = board[0][0].getPiece();
-                                    rook3.move(3, 0);
-                                    board[0][0].setPiece(null);
-                                    board[0][3].setPiece(rook3);
-                                    break;
-                            }
-                            break;
-                        case NONE:
-                            currentPiece.abortMove();
-                            break;
-                    }
+                    movePiece(currentPiece, targetX, targetY);
                 }
-
-                time++;
             }
         }.start();
 
@@ -271,67 +199,79 @@ public class Main extends Application {
             int targetX = toBoard(piece.getLayoutX());
             int targetY = toBoard(piece.getLayoutY());
 
-            Move move = tryMove(piece, targetX, targetY);
-
-            int currX = toBoard(piece.getOldX());
-            int currY = toBoard(piece.getOldY());
-
-            switch (move.getMoveType()) {
-                case CAPTURE:
-                    piece.move(targetX, targetY);
-                    board[currY][currX].setPiece(null);
-                    Piece capturedPiece = board[targetY][targetX].getPiece();
-                    board[targetY][targetX].setPiece(null);
-                    pieceGroup.getChildren().remove(capturedPiece);
-                    board[targetY][targetX].setPiece(piece);
-                    makeLogicMove(currX, currY, targetX, targetY);
-                    break;
-                case MOVE:
-                    piece.move(targetX, targetY);
-                    board[currY][currX].setPiece(null);
-                    board[targetY][targetX].setPiece(piece);
-                    makeLogicMove(currX, currY, targetX, targetY);
-                    break;
-                case CASTLE:
-                    String moveString = parseToAlgebraicGui(currX, currY, targetX, targetY);
-                    piece.move(targetX, targetY);
-                    board[targetY][targetX].setPiece(piece);
-                    board[currY][currX].setPiece(null);
-                    makeLogicMove(currX, currY, targetX, targetY);
-                    switch (moveString) {
-                        case "e1g1":
-                            Piece rook = board[7][7].getPiece();
-                            rook.move(5, 7);
-                            board[7][7].setPiece(null);
-                            board[7][5].setPiece(rook);
-                            break;
-                        case "e1c1":
-                            Piece rook1 = board[7][0].getPiece();
-                            rook1.move(3, 7);
-                            board[7][0].setPiece(null);
-                            board[7][3].setPiece(rook1);
-                            break;
-                        case "e8g8":
-                            Piece rook2 = board[0][7].getPiece();
-                            rook2.move(5, 0);
-                            board[0][7].setPiece(null);
-                            board[0][5].setPiece(rook2);
-                            break;
-                        case "e8c8":
-                            Piece rook3 = board[0][0].getPiece();
-                            rook3.move(3, 0);
-                            board[0][0].setPiece(null);
-                            board[0][3].setPiece(rook3);
-                            break;
-                    }
-                    break;
-                case NONE:
-                    piece.abortMove();
-                    break;
-            }
+            movePiece(piece, targetX, targetY);
         });
 
         return piece;
+    }
+
+    /**
+     * Execute piece movement on GUI board. Set new piece locations.
+     * Handle castling and capturing.
+     *
+     * @param piece Piece object
+     * @param targetX int
+     * @param targetY int
+     */
+    public void movePiece(Piece piece, int targetX, int targetY) {
+        Move move = tryMove(piece, targetX, targetY);
+
+        int currX = toBoard(piece.getOldX());
+        int currY = toBoard(piece.getOldY());
+
+        switch (move.getMoveType()) {
+            case CAPTURE:
+                piece.move(targetX, targetY);
+                board[currY][currX].setPiece(null);
+                Piece capturedPiece = board[targetY][targetX].getPiece();
+                board[targetY][targetX].setPiece(null);
+                pieceGroup.getChildren().remove(capturedPiece);
+                board[targetY][targetX].setPiece(piece);
+                makeLogicMove(currX, currY, targetX, targetY);
+                break;
+            case MOVE:
+                piece.move(targetX, targetY);
+                board[currY][currX].setPiece(null);
+                board[targetY][targetX].setPiece(piece);
+                makeLogicMove(currX, currY, targetX, targetY);
+                break;
+            case CASTLE:
+                String moveString = parseToAlgebraicGui(currX, currY, targetX, targetY);
+                piece.move(targetX, targetY);
+                board[targetY][targetX].setPiece(piece);
+                board[currY][currX].setPiece(null);
+                makeLogicMove(currX, currY, targetX, targetY);
+                switch (moveString) {
+                    case "e1g1":
+                        Piece rook = board[7][7].getPiece();
+                        rook.move(5, 7);
+                        board[7][7].setPiece(null);
+                        board[7][5].setPiece(rook);
+                        break;
+                    case "e1c1":
+                        Piece rook1 = board[7][0].getPiece();
+                        rook1.move(3, 7);
+                        board[7][0].setPiece(null);
+                        board[7][3].setPiece(rook1);
+                        break;
+                    case "e8g8":
+                        Piece rook2 = board[0][7].getPiece();
+                        rook2.move(5, 0);
+                        board[0][7].setPiece(null);
+                        board[0][5].setPiece(rook2);
+                        break;
+                    case "e8c8":
+                        Piece rook3 = board[0][0].getPiece();
+                        rook3.move(3, 0);
+                        board[0][0].setPiece(null);
+                        board[0][3].setPiece(rook3);
+                        break;
+                }
+                break;
+            case NONE:
+                piece.abortMove();
+                break;
+        }
     }
 
     /**
@@ -380,7 +320,6 @@ public class Main extends Application {
      */
     private boolean inBounds(int targetX, int targetY) {
         return targetX >= 0 && targetX < WIDTH && targetY >= 0 && targetY < HEIGHT;
-
     }
 
     /**
