@@ -3,5 +3,6 @@ package gui;
 public enum MoveType {
     NONE,
     MOVE,
-    CAPTURE
+    CAPTURE,
+    CASTLE
 }

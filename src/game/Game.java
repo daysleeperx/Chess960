@@ -102,7 +102,7 @@ public class Game {
      *
      * @param sideToMove Color
      */
-    private void announceWinner(Color sideToMove) {
+    public void announceWinner(Color sideToMove) {
         System.out.println("GAME OVER");
 
         switch (sideToMove) {

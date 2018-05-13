@@ -99,7 +99,7 @@ public class StockFish extends Player {
         sendCommand("position fen " + fen);
         sendCommand("go movetime " + wait);
 
-        return getOutput(wait + 1000).split("bestmove ")[1].split(" ")[0].replace("\n", "");
+        return getOutput(wait + 100).split("bestmove ")[1].split(" ")[0].replace("\n", "");
     }
 
     /**
