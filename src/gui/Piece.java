@@ -109,7 +109,10 @@ public class Piece extends Pane {
             mouseY = event.getSceneY();
         });
 
-        setOnMouseDragged(event -> relocate(event.getSceneX() - mouseX + oldX, event.getSceneY() - mouseY + oldY));
+        setOnMouseDragged(event -> {
+            toFront();
+            relocate(event.getSceneX() - mouseX + oldX, event.getSceneY() - mouseY + oldY);
+        });
     }
 
     public Type getType() {
