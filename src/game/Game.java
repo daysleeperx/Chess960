@@ -4,6 +4,7 @@ import board.Board;
 import move.Move;
 import pieces.Color;
 import pieces.Piece;
+import player.Human;
 import player.Player;
 import stockfish.StockFish;
 
@@ -62,7 +63,7 @@ public class Game {
         board = new Board();
 
         // set up players
-        players.put(Color.WHITE, new StockFish(Color.WHITE, this));
+        players.put(Color.WHITE, new Human(Color.WHITE, this));
         players.put(Color.BLACK, new StockFish(Color.BLACK, this));
 
         board.setUpPieces(players.get(Color.WHITE), players.get(Color.BLACK));
@@ -84,6 +85,10 @@ public class Game {
 
     public Color getSideToMove() {
         return sideToMove;
+    }
+
+    public Map<Color, Player> getPlayers() {
+        return players;
     }
 
     /**

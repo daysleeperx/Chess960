@@ -3,14 +3,19 @@ package gui;
 import board.Board;
 import game.Game;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import move.Move;
 import pieces.Color;
 import pieces.Type;
@@ -18,7 +23,9 @@ import stockfish.StockFish;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static utils.FenParser.parseToFen;
 import static utils.Parser.*;
@@ -28,6 +35,7 @@ public class Main extends Application {
      * Primary stage.
      */
     private Stage primaryStage;
+    private BorderPane rootLayout;
     /**
      * Dimension of board and squares.
      */
@@ -63,6 +71,10 @@ public class Main extends Application {
      * Stockfish.
      */
     private StockFish stockFish;
+    /**
+     * Kings map.
+     */
+    private Map<Color, Piece> kings = new HashMap<>();
 
 
     private Parent createGame() throws IOException {
@@ -102,8 +114,12 @@ public class Main extends Application {
 
         List<Piece> pieceList = new ArrayList<>();
 
-        pieceList.add(createPiece(Type.KING, Color.WHITE, 4, 7));
-        pieceList.add(createPiece(Type.KING, Color.BLACK, 4, 0));
+        Piece whiteKing = createPiece(Type.KING, Color.WHITE, 4, 7);
+        Piece blackKing = createPiece(Type.KING, Color.BLACK, 4, 0);
+        pieceList.add(whiteKing);
+        pieceList.add(blackKing);
+        kings.put(Color.WHITE, whiteKing);
+        kings.put(Color.BLACK, blackKing);
         pieceList.add(createPiece(Type.ROOK, Color.WHITE, 0, 7));
         pieceList.add(createPiece(Type.ROOK, Color.WHITE, 7, 7));
         pieceList.add(createPiece(Type.ROOK, Color.BLACK, 0, 0));
@@ -134,13 +150,21 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        Parent root = createGame();
 
-        Scene scene = new Scene(root);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/mainGameView.fxml"));
+        rootLayout = loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+        rootLayout.setCenter(createGame());
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Chess960");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
+        primaryStage.show();
 
         // Game loop
         new AnimationTimer() {
@@ -157,12 +181,17 @@ public class Main extends Application {
             public void handle(long now) {
                 // show dialog if game is over
                 if (game.isGameOver(sideToMove)) {
-                    Label label = new Label();
-                    label.setText("Checkmate!");
-                    label.setStyle("-fx-text-fill: #0053f9; -fx-font-family: Futura; -fx-font-size: 50pt");
-                    label.setTranslateX(WIDTH * SQUARE_SIZE / 2 - 100);
-                    label.setTranslateY(WIDTH * SQUARE_SIZE / 2);
-                    pieceGroup.getChildren().add(label);
+                    ImageView im = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/buble.png"));
+                    im.setFitWidth(150);
+                    im.setFitHeight(140);
+                    im.setLayoutX(kings.get(sideToMove).getOldX());
+                    im.setLayoutY(kings.get(sideToMove).getOldY() - SQUARE_SIZE * 2);
+                    im.setOpacity(0);
+                    pieceGroup.getChildren().add(im);
+                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), im);
+                    fadeTransition.setFromValue(0.0);
+                    fadeTransition.setToValue(1.0);
+                    fadeTransition.play();
                     stop();
                 }
 
@@ -209,7 +238,7 @@ public class Main extends Application {
      * Execute piece movement on GUI board. Set new piece locations.
      * Handle castling and capturing.
      *
-     * @param piece Piece object
+     * @param piece   Piece object
      * @param targetX int
      * @param targetY int
      */
@@ -292,12 +321,13 @@ public class Main extends Application {
 
     private Move tryMove(Piece piece, int targetX, int targetY) {
         String move = parseToAlgebraicGui((int) piece.getOldX() / SQUARE_SIZE, (int) piece.getOldY() / SQUARE_SIZE, targetX, targetY);
-        System.out.println(logicBoard.getPossibleMoves(sideToMove));
+        System.out.println("Possible moves: " + logicBoard.getPossibleMoves(sideToMove));
         System.out.println(move);
 
 
         if (piece.getColor() == sideToMove && inBounds(targetX, targetY) && logicBoard.getPossibleMoves(sideToMove).contains(move)) {
-            if (move.equals("e1g1") || move.equals("e1c1") || move.equals("e8g8") || move.equals("e8c8")) {
+            // TODO: improve check for castling
+            if (piece.getType() == Type.KING && (move.equals("e1g1") || move.equals("e1c1") || move.equals("e8g8") || move.equals("e8c8"))) {
                 return new Move(MoveType.CASTLE);
             }
             if (!board[targetY][targetX].hasPiece()) {
