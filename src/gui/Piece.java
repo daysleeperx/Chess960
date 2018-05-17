@@ -36,10 +36,10 @@ public class Piece extends Pane {
             case KING:
                 switch (color) {
                     case WHITE:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/king_white.png"));
+                        imageView = new ImageView(new Image("img/king_white.png"));
                         break;
                     case BLACK:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/king_black.png"));
+                        imageView = new ImageView(new Image("img/king_black.png"));
                         break;
                 }
                 break;
@@ -47,10 +47,10 @@ public class Piece extends Pane {
             case QUEEN:
                 switch (color) {
                     case WHITE:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/queen_white.png"));
+                        imageView = new ImageView(new Image("img/queen_white.png"));
                         break;
                     case BLACK:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/queen_black.png"));
+                        imageView = new ImageView(new Image("img/queen_black.png"));
                         break;
                 }
                 break;
@@ -58,10 +58,10 @@ public class Piece extends Pane {
             case ROOK:
                 switch (color) {
                     case WHITE:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/rook_white.png"));
+                        imageView = new ImageView(new Image("img/rook_white.png"));
                         break;
                     case BLACK:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/rook_black.png"));
+                        imageView = new ImageView(new Image("img/rook_black.png"));
                         break;
                 }
                 break;
@@ -69,10 +69,10 @@ public class Piece extends Pane {
             case BISHOP:
                 switch (color) {
                     case WHITE:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/bishop_white.png"));
+                        imageView = new ImageView(new Image("img/bishop_white.png"));
                         break;
                     case BLACK:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/bishop_black.png"));
+                        imageView = new ImageView(new Image("img/bishop_black.png"));
                         break;
                 }
                 break;
@@ -80,10 +80,10 @@ public class Piece extends Pane {
             case KNIGHT:
                 switch (color) {
                     case WHITE:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/knight_white.png"));
+                        imageView = new ImageView(new Image("img/knight_white.png"));
                         break;
                     case BLACK:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/knight_black.png"));
+                        imageView = new ImageView(new Image("img/knight_black.png"));
                         break;
                 }
                 break;
@@ -91,10 +91,10 @@ public class Piece extends Pane {
             case PAWN:
                 switch (color) {
                     case WHITE:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/pawn_white.png"));
+                        imageView = new ImageView(new Image("img/pawn_white.png"));
                         break;
                     case BLACK:
-                        imageView = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/pawn_black.png"));
+                        imageView = new ImageView(new Image("img/pawn_black.png"));
                         break;
                 }
                 break;

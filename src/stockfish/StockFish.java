@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Scanner;
 
 import static utils.FenParser.parseToFen;
 
@@ -37,7 +36,7 @@ public class StockFish extends Player {
     /**
      * Absolute path to Stockfish.
      */
-    private static final String PATH = "/Users/viktorpavlov1/Stockfish/src/stockfish";
+    private static final String PATH = "Stockfish/src/stockfish";
 
     /**
      * Starts the engine and initializes the input/output streams.

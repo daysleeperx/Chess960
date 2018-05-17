@@ -1,7 +1,7 @@
 **FischerRandom (Chess960)**
 ============================
 
-.. image:: main.jpg
+.. image:: main.png
 
 *Fischeri malemängu rakendus* https://en.wikipedia.org/wiki/Chess960
 
@@ -29,27 +29,11 @@ Funktsionaalsus
 - või oma variant (Alpha-Beta, Minimax)
 
 
-Plaan
------
-
-- \4. nädal: projektiplaaniga alustamine/ MVC setup/ Struktuur
-- \5. nädal: Esimesed klassid (pieces)
-- \6. nädal: projektiplaani esitamine, Klassid game, Player, Board
-- \7. nädal: mängu loogika, disain
-- \8. nädal: mängu loogika, Unit tests
-- \9. nädal: GUI alustamine
-- \10. nädal: GUI
-- \11. nädal: GUI?
-- \12. nädal: ühendus chess engine'ga?
-- \13. nädal: ??????
-- \14. nädal: ??????
-- \15. nädal: ??????
-- \16. nädal: Lõplik esitamine
-
 Kasutatav tehnoloogia
 ---------------------
 
 JavaFX
+Stockfish
 
 Punktisoov
 ----------

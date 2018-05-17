@@ -2,6 +2,8 @@ package gui;
 
 import board.Board;
 import game.Game;
+import gui.view.MainGameViewController;
+import gui.view.MenuController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -78,6 +80,8 @@ public class Main extends Application {
 
 
     private Parent createGame() throws IOException {
+        squareGroup.getChildren().clear();
+        pieceGroup.getChildren().clear();
         game = new Game();
         game.createGame();
         logicBoard = game.getBoard();
@@ -151,20 +155,35 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/menuView.fxml"));
+        Parent menu = loader.load();
+        MenuController menuController = loader.getController();
+        menuController.setMainApp(this);
+        primaryStage.setTitle("Chess 960");
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(menu));
+        primaryStage.show();
+    }
+
+    public void goBack() throws IOException {
+        start(primaryStage);
+    }
+
+    public void toGameScene() throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/mainGameView.fxml"));
         rootLayout = loader.load();
+        MainGameViewController mainGameViewController = loader.getController();
+        mainGameViewController.setMainApp(this);
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
         rootLayout.setCenter(createGame());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Chess960");
-        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
-        primaryStage.show();
 
         // Game loop
         new AnimationTimer() {
@@ -179,9 +198,9 @@ public class Main extends Application {
              **/
             @Override
             public void handle(long now) {
-                // show dialog if game is over
+                // show animation if game is over
                 if (game.isGameOver(sideToMove)) {
-                    ImageView im = new ImageView(new Image("file:/Users/viktorpavlov1/IdeaProjects/iti0202_gui/resources/img/buble.png"));
+                    ImageView im = new ImageView(new Image("img/buble.png"));
                     im.setFitWidth(150);
                     im.setFitHeight(140);
                     im.setLayoutX(kings.get(sideToMove).getOldX());
@@ -209,7 +228,7 @@ public class Main extends Application {
             }
         }.start();
 
-        primaryStage.show();
+        primaryStage.setScene(scene);
     }
 
     /**
@@ -362,13 +381,4 @@ public class Main extends Application {
     private int toBoard(double pixel) {
         return (int) (pixel + SQUARE_SIZE / 2) / SQUARE_SIZE;
     }
-
-
-    public void printGroup() {
-        for (Node sq : squareGroup.getChildren()) {
-            System.out.println(sq);
-        }
-        System.out.println("**************************");
-    }
-
 }

@@ -1,0 +1,11 @@
+.button {
+    -fx-font-size: 25;
+    -fx-font-family: Futura;
+    -fx-text-fill: #9f9f9f;
+    -fx-background-color: transparent;
+}
+
+.button:hover {
+    -fx-text-fill: white;
+
+}

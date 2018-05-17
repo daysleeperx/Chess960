@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="560.0" style="-fx-background-color: transparent; -fx-border-radius: 20; -fx-font-size: 25; -fx-text-fill: white; -fx-font-family: Futura;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.MenuController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="569.0" layoutX="-6.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@bg.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="play" fitHeight="91.0" fitWidth="95.0" layoutX="115.0" layoutY="219.0" onMouseClicked="#handlePlayButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@gamepad.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="crown" fitHeight="91.0" fitWidth="95.0" layoutX="346.0" layoutY="219.0" onMouseClicked="#handleInfoButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@information.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="stockFish" fitHeight="91.0" fitWidth="106.0" layoutX="115.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fishbones.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="settings" fitHeight="95.0" fitWidth="113.0" layoutX="340.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@settings.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="infoLabel1" layoutX="193.0" layoutY="312.0" style="-fx-font-family: Futura; -fx-text-fill: white;" text="Made by Viktor" />
+      <Label fx:id="infoLabel2" layoutX="217.0" layoutY="354.0" style="-fx-text-fill: white;" text="for ITI0202" />
+      <ImageView fx:id="arrow" fitHeight="52.0" fitWidth="60.0" layoutX="256.0" layoutY="592.0" onMouseClicked="#handleBackArrow" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@left-arrow.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
