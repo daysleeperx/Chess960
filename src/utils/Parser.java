@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static board.Board.HEIGHT;
+
 /**
  * Parses user input into chess notation.
  */
@@ -86,9 +88,9 @@ public final class Parser {
         algebraic.put(7, 'h');
 
         String first1 = String.valueOf(algebraic.get(x));
-        String second = String.valueOf(y - (y - (7 - y)) + 1);
+        String second = String.valueOf(HEIGHT - y);
         String third = String.valueOf(algebraic.get(targetX));
-        String fourth = String.valueOf(targetY - (targetY - (7 - targetY)) + 1);
+        String fourth = String.valueOf(HEIGHT - targetY);
         return first1 + second + third + fourth;
     }
 
@@ -107,10 +109,10 @@ public final class Parser {
 
         out[0] = sq.get(inputArray[0]);
         int y0 = inputArray[1] - '0';
-        out[1] = y0 - (y0 - (8 - y0));
+        out[1] = HEIGHT - y0;
         out[2] = sq.get(inputArray[2]);
         int y1 = inputArray[3] - '0';
-        out[3] = y1 - (y1 - (8 - y1));
+        out[3] = HEIGHT - y1;
         return out;
     }
 
@@ -120,6 +122,6 @@ public final class Parser {
 //        Piece pawn = new Pawn(4, 1, null);
 //        System.out.println(parseToAlgebraicGui(4, 6, 4, 4));
 //        System.out.println(Arrays.toString(parseInput("e2e4")));
-        System.out.println(Arrays.toString(parseAlgebraicToGui("b8c6")));
+        System.out.println(Arrays.toString(parseAlgebraicToGui("h1h8")));
     }
 }
