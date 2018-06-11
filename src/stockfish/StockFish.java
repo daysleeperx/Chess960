@@ -36,7 +36,7 @@ public class StockFish extends Player {
     /**
      * Absolute path to Stockfish.
      */
-    private static final String PATH = "Stockfish/src/stockfish";
+    private static final String PATH = "lib/Stockfish/src/stockfish";
 
     /**
      * Starts the engine and initializes the input/output streams.
