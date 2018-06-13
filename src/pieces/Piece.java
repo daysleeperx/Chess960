@@ -1,6 +1,5 @@
 package pieces;
 
-import player.Human;
 import player.Player;
 
 import java.util.List;

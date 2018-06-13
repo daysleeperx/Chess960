@@ -1,16 +1,10 @@
 package board;
 
 import pieces.*;
-import player.Human;
 import player.Player;
 import square.Square;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static utils.FenParser.parseToFen;
 import static utils.Parser.parseToAlgebraic;
@@ -183,6 +177,10 @@ public class Board {
 
     /**
      * Get List of all possible moves for either black or white.
+     * The idea is to check all squares for possible moves and when
+     * a move is found - make a pseudo-move and check if the move does not
+     * result in check for the king. If move is not resulting in a check -
+     * add move to list of possible moves.
      *
      * @param color Color
      * @return List
@@ -211,6 +209,7 @@ public class Board {
                             boardArray[currentY][currentX].setPiece(null);
                             piece.setX(col);
                             piece.setY(row);
+                            // if move is not resulting in a check - add to list
                             if (!king.isInCheck()) moves.add(parseToAlgebraic(currentX, currentY, col, row));
                             // undo move
                             boardArray[row][col].setPiece(captured);

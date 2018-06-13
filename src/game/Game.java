@@ -123,7 +123,10 @@ public class Game {
     }
 
     /**
-     * gui.Main Game loop.
+     * Game loop. This loop is mainly for debugging purposes.
+     * Currently two stockfish engines are set to play each other in order to test
+     * move validation, checkmate and other logic. The main game loop is located
+     * in the GUI Main.java class.
      */
     public void game() throws IOException {
 //        StockFish stockFish = new StockFish();

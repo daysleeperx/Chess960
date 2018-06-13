@@ -340,13 +340,14 @@ public class Main extends Application {
 
     private Move tryMove(Piece piece, int targetX, int targetY) {
         String move = parseToAlgebraicGui((int) piece.getOldX() / SQUARE_SIZE, (int) piece.getOldY() / SQUARE_SIZE, targetX, targetY);
-        System.out.println("Possible moves: " + logicBoard.getPossibleMoves(sideToMove));
-        System.out.println(move);
+        List<String> castlingMoves = List.of("e1g1", "e1c1", "e8g8", "e8c8");
+        //System.out.println("Possible moves: " + logicBoard.getPossibleMoves(sideToMove));
+        //System.out.println(move);
 
 
         if (piece.getColor() == sideToMove && inBounds(targetX, targetY) && logicBoard.getPossibleMoves(sideToMove).contains(move)) {
             // TODO: improve check for castling
-            if (piece.getType() == Type.KING && (move.equals("e1g1") || move.equals("e1c1") || move.equals("e8g8") || move.equals("e8c8"))) {
+            if (piece.getType() == Type.KING && castlingMoves.contains(move)) {
                 return new Move(MoveType.CASTLE);
             }
             if (!board[targetY][targetX].hasPiece()) {
