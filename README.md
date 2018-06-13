@@ -1,5 +1,5 @@
 ## Chess API using JavaFX and [Stockfish](https://stockfishchess.org/) engine.
-### In order to run unzip the out/artifacts/Chess.960.zip and open the .jar file or go to directory and type:
+to **run** unzip the out/artifacts/Chess.960.zip and open the .jar file or go to directory and type:
 ```java
 cd/
 java -jar Chess960.jar
